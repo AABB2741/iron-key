@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "pnpm build:web",
+    "build:web": "tsc && vite build",
+    "build:tauri": "NO_STRIP=1 pnpm tauri build",
     "preview": "vite preview",
     "tauri": "tauri"
   },

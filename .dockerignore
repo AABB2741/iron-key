@@ -1,0 +1,41 @@
+dist/
+dist-ssr/
+node_modules/
+target/
+.tanstack/
+.turbo/
+.git/
+.vscode/
+
+# Rust build artifacts
+**/target/
+**/Cargo.lock
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment files
+.env*
+!.env.example
+
+# Development files
+*.tsbuildinfo
+.eslintcache

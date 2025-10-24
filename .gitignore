@@ -37,6 +37,9 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Tanstack
+.tanstack
+
 # Misc
 .DS_Store
 *.pem

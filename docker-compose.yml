@@ -1,0 +1,10 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: apps/desktop/dockerfile.web
+    restart: "no"
+    ports:
+      - "5173:80"
+    environment:
+      - DOCKER_BUILDKIT=0
