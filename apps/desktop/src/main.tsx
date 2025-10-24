@@ -8,6 +8,7 @@ import { queryClient } from "./lib/react-query";
 
 // Import the generated route tree
 import { routeTree } from "./route-tree.gen";
+import { isDesktop } from "./utils/is-desktop";
 
 // Create a new router instance
 const router = createRouter({ routeTree });
@@ -31,3 +32,7 @@ if (!rootElement.innerHTML) {
     </StrictMode>,
   );
 }
+
+document.getElementsByTagName("html")[0].dataset.platform = isDesktop()
+  ? "desktop"
+  : "web";

@@ -1,10 +1,16 @@
 import type React from "react";
+import { twMerge } from "tailwind-merge";
 import { tv } from "tailwind-variants";
+
+import { isDesktop } from "@/utils/is-desktop";
 
 export type ButtonVariant = "outline" | "primary";
 
 const container = tv({
-  base: "h-9 min-w-9 rounded-md flex items-center justify-center text-foreground [&>svg]:size-4 gap-3 px-2",
+  base: twMerge(
+    "h-9 min-w-9 rounded-md flex items-center justify-center text-foreground [&>svg]:size-4 gap-3 px-2",
+    !isDesktop() && "cursor-pointer",
+  ),
   variants: {
     color: {
       outline: "border border-border",

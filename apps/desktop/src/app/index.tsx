@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import {
   CopyIcon,
+  DownloadIcon,
   LockIcon,
   LogInIcon,
   RefreshCcwIcon,
@@ -8,6 +9,7 @@ import {
 } from "lucide-react";
 
 import { Layout } from "@/components/layout";
+import { WebOnly } from "@/components/platform-only";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
@@ -20,7 +22,20 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <Layout.Container className="space-y-6">
-      <header>
+      <header className="flex gap-4 justify-between">
+        <WebOnly>
+          <a
+            className="bg-muted p-2 rounded-md flex gap-2 items-center"
+            href="#"
+            target="_blank"
+          >
+            <DownloadIcon className="size-4" />
+            <p className="text-sm">
+              Baixe o app desktop para salvar e acessar as senhas localmente e
+              offline.
+            </p>
+          </a>
+        </WebOnly>
         <Button>
           <LogInIcon />
           <span>Entrar</span>
@@ -39,7 +54,10 @@ function Index() {
           <div className="space-y-2">
             <p>Gerador de senhas</p>
             <div className="flex gap-2">
-              <Input className="flex-1" />
+              <Input
+                className="flex-1"
+                placeholder="Gere uma senha para vê-la aqui"
+              />
               <Button>
                 <CopyIcon className="text-muted-foreground size-4" />
               </Button>

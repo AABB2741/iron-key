@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+html[data-platform="desktop"] {
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: default;
+}
+
 @theme {
   --color-foreground: oklch(92.8% 0.006 264.531);
   --color-secondary: oklch(87.2% 0.01 258.338);
