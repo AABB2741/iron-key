@@ -26,13 +26,22 @@ coverage
 out/
 build
 dist
+dist-ssr
 
-
-# Debug
+# Logs
+logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
 # Misc
 .DS_Store
 *.pem
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
