@@ -7,7 +7,7 @@ import "./index.css";
 import { queryClient } from "./lib/react-query";
 
 // Import the generated route tree
-import { routeTree } from "./routeTree.gen";
+import { routeTree } from "./route-tree.gen";
 
 // Create a new router instance
 const router = createRouter({ routeTree });

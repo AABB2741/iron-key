@@ -13,6 +13,7 @@ export default defineConfig({
       target: "react",
       autoCodeSplitting: true,
       routesDirectory: path.resolve(import.meta.dirname, "src/app"),
+      generatedRouteTree: "./src/route-tree.gen.ts",
     }),
     tailwindcss(),
     react(),
