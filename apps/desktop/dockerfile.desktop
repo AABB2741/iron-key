@@ -39,12 +39,18 @@ RUN apt install -y libwebkit2gtk-4.1-dev \
 COPY --from=installer /app .
 COPY --from=pruner /app/out/full .
 
+FROM builder AS linux-builder
+
 RUN pnpm --filter desktop build:linux
+
+FROM builder AS macos-builder
 
 # Configure for macOS build
 # https://github.com/tauri-apps/tauri-docs/issues/3097#issuecomment-2569181250
 RUN rustup target add aarch64-apple-darwin x86_64-apple-darwin
 RUN pnpm --filter desktop build:macos
+
+FROM builder AS windows-builder
 
 # Install dependencies for Windows
 # https://v2.tauri.app/distribute/windows-installer/
@@ -56,5 +62,17 @@ RUN cargo install --locked cargo-xwin
 RUN pnpm --filter desktop build:win64
 RUN pnpm --filter desktop build:win32
 
+# Output stages for each platform
+FROM scratch AS linux-output
+COPY --from=linux-builder /app/apps/desktop/src-tauri/target/release/bundle ./
+
+FROM scratch AS macos-output
+COPY --from=macos-builder /app/apps/desktop/src-tauri/target/*/release/bundle ./
+
+FROM scratch AS windows-output
+COPY --from=windows-builder /app/apps/desktop/src-tauri/target/*/release/bundle ./
+
 FROM scratch AS output
-COPY --from=builder /app/apps/desktop/src-tauri/target /target
+COPY --from=linux-output / .
+COPY --from=macos-output / .
+COPY --from=windows-output / .
