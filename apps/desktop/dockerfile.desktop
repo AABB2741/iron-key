@@ -48,8 +48,8 @@ RUN pnpm --filter desktop build:macos
 
 # Install dependencies for Windows
 # https://v2.tauri.app/distribute/windows-installer/
-RUN apt install -y nsis lld llvm
-RUN rustup target add x86_64-pc-windows-msvc
+RUN apt install -y nsis lld llvm clang
+RUN rustup target add x86_64-pc-windows-msvc i686-pc-windows-msvc
 RUN cargo install --locked cargo-xwin
 
 # Build for Windows (x64, x86)
