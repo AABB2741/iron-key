@@ -1,0 +1,60 @@
+FROM node:24.10 AS base
+
+RUN apt update
+RUN npm i -g pnpm turbo
+
+FROM base AS pruner
+
+WORKDIR /app
+
+COPY . .
+RUN turbo prune desktop --docker
+
+FROM base AS installer
+
+WORKDIR /app
+
+COPY --from=pruner /app/out/json .
+COPY turbo.json .
+RUN pnpm install --frozen-lockfile
+
+FROM base AS builder
+
+WORKDIR /app
+# Install rust and cargo
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+ENV PATH="/root/.cargo/bin:${PATH}"
+
+# https://v2.tauri.app/start/prerequisites/
+RUN apt install -y libwebkit2gtk-4.1-dev \
+  build-essential \
+  curl \
+  wget \
+  file \
+  libxdo-dev \
+  libssl-dev \
+  libayatana-appindicator3-dev \
+  librsvg2-dev
+
+COPY --from=installer /app .
+COPY --from=pruner /app/out/full .
+
+RUN pnpm --filter desktop build:linux
+
+# Configure for macOS build
+# https://github.com/tauri-apps/tauri-docs/issues/3097#issuecomment-2569181250
+RUN rustup target add aarch64-apple-darwin x86_64-apple-darwin
+RUN pnpm --filter desktop build:macos
+
+# Install dependencies for Windows
+# https://v2.tauri.app/distribute/windows-installer/
+RUN apt install -y nsis lld llvm
+RUN rustup target add x86_64-pc-windows-msvc
+RUN cargo install --locked cargo-xwin
+
+# Build for Windows (x64, x86)
+RUN pnpm --filter desktop build:win64
+RUN pnpm --filter desktop build:win32
+
+FROM scratch AS output
+COPY --from=builder /app/apps/desktop/src-tauri/target /target

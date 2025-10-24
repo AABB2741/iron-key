@@ -4,26 +4,26 @@ RUN apk update
 RUN apk add --no-cache libc6-compat
 RUN npm i -g pnpm turbo
 
-FROM base AS builder
+FROM base AS pruner
 
 WORKDIR /app
 
 COPY . .
 RUN turbo prune desktop --docker
 
-FROM base AS installer
+FROM base AS builder
 
 WORKDIR /app
 
-COPY --from=builder /app/out/json .
+COPY --from=pruner /app/out/json .
 COPY turbo.json .
 RUN pnpm install --frozen-lockfile
-COPY --from=builder /app/out/full .
+COPY --from=pruner /app/out/full .
 RUN pnpm build:web
 
 FROM nginx:stable-alpine3.21 AS runner
 
-COPY --from=installer /app/apps/desktop/dist /usr/share/nginx/html
+COPY --from=builder /app/apps/desktop/dist /usr/share/nginx/html
 
 EXPOSE 80
 

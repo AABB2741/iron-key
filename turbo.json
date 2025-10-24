@@ -15,6 +15,14 @@
         "dist/**"
       ]
     },
+    "build:desktop": {
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "src-tauri/target/**"
+      ]
+    },
     "lint": {
       "dependsOn": [
         "^lint"

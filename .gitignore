@@ -27,6 +27,7 @@ out/
 build
 dist
 dist-ssr
+dist-tauri
 
 # Logs
 logs
