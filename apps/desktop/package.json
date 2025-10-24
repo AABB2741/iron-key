@@ -11,7 +11,7 @@
     "build:win64": "tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc",
     "build:win32": "tauri build --target i686-pc-windows-msvc",
     "build:macos": "tauri build --target universal-apple-darwin",
-    "build:docker:desktop": "DOCKER_BUILDKIT=1 pnpm -w exec docker build -f apps/desktop/dockerfile.desktop --target output --output type=local,dest=./apps/desktop/dist-tauri .",
+    "build:docker:desktop": "cross-env DOCKER_BUILDKIT=1 pnpm -w exec docker build -f apps/desktop/dockerfile.desktop --target output --output type=local,dest=./apps/desktop/dist-tauri .",
     "preview": "vite preview",
     "tauri": "tauri"
   },
@@ -33,6 +33,7 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
     "@vitejs/plugin-react": "^4.6.0",
+    "cross-env": "^10.1.0",
     "typescript": "~5.8.3",
     "vite": "^7.1.12"
   }
