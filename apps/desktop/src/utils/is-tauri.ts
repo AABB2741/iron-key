@@ -1,3 +1,3 @@
 export function isTauri() {
-  return "__TAURI__" in window;
+  return "__TAURI_INTERNALS__" in window;
 }
