@@ -8,8 +8,11 @@ import {
 } from "fastify-type-provider-zod";
 import scalarAPIReference from "@scalar/fastify-api-reference";
 
+import { env } from "./env.ts";
+
 export const app = fastify({
 	logger: {
+		level: env.LOGGER,
 		transport: {
 			target: "pino-pretty",
 			options: {
@@ -20,7 +23,7 @@ export const app = fastify({
 	},
 }).withTypeProvider<ZodTypeProvider>();
 
-if (process.env.NODE_ENV === "development") {
+if (env.NODE_ENV === "development") {
 	app.register(fastifySwagger, {
 		openapi: {
 			info: {
