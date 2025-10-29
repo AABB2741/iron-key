@@ -4,8 +4,10 @@
   "version": "0.1.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "dev": "node --env-file .env --watch src/server.ts"
+    "dev": "pnpm env:dev node --watch src/server.ts",
+    "env:dev": "dotenv -e .env.development -e .env --"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +22,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.18.12",
+    "dotenv-cli": "^11.0.0",
     "typescript": "^5.9.3"
   }
 }
