@@ -1,4 +1,4 @@
-FROM node:24.10 AS base
+FROM node:24 AS base
 
 RUN apt update
 RUN npm i -g pnpm turbo
