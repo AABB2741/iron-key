@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 
 import { Layout } from "@/components/layout";
-import { WebOnly } from "@/components/platform-only";
+import { DesktopOnly, WebOnly } from "@/components/platform-only";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
@@ -22,7 +22,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <Layout.Container className="space-y-6">
-      <header className="flex gap-4 justify-between">
+      <header className="flex gap-4 justify-end">
         <WebOnly>
           <a
             className="bg-muted p-2 rounded-md flex gap-2 items-center"
@@ -36,10 +36,12 @@ function Index() {
             </p>
           </a>
         </WebOnly>
-        <Button>
-          <LogInIcon />
-          <span>Entrar</span>
-        </Button>
+        <DesktopOnly>
+          <Button>
+            <LogInIcon />
+            <span>Entrar</span>
+          </Button>
+        </DesktopOnly>
       </header>
 
       <div className="text-center space-y-2">
@@ -97,10 +99,12 @@ function Index() {
               <RefreshCcwIcon />
               <span>Gerar senha</span>
             </Button>
-            <Button>
-              <SaveIcon />
-              <span>Salvar senha</span>
-            </Button>
+            <DesktopOnly>
+              <Button>
+                <SaveIcon />
+                <span>Salvar senha</span>
+              </Button>
+            </DesktopOnly>
           </div>
         </Layout.Card>
         <Layout.Card className="flex-1">
