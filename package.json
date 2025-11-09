@@ -5,6 +5,7 @@
     "build": "turbo run build",
     "build:web": "turbo run build:web",
     "build:desktop": "turbo run build:desktop",
+    "docker:dev": "docker compose -f docker-compose.dev.yml up -d",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
