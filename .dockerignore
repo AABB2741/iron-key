@@ -1,42 +1,17 @@
-dist/
-dist-ssr/
-dist-tauri/
-node_modules/
-target/
-.tanstack/
-.turbo/
+**/dist/
+**/dist-ssr/
+**/dist-tauri/
+**/node_modules/
+**/.turbo/
+
+apps/desktop/src-tauri/target/
+apps/desktop/.tanstack/
+
 .git/
 .vscode/
 
 # Rust build artifacts
-**/target/
-**/Cargo.lock
-
-# OS generated files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-
-# IDE files
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# Logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+apps/desktop/src-tauri/Cargo.lock
 
 # Environment files
-.env*
-!.env.example
-
-# Development files
-*.tsbuildinfo
-.eslintcache
+**/.env*

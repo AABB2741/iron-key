@@ -6,8 +6,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "ts:check": "tsc --noEmit",
+    "start": "node dist/server.js",
     "dev": "pnpm env:dev node --watch src/server.ts",
+    "ts:check": "tsc --noEmit",
+    "build": "tsup",
     "db:generate": "pnpm env:dev drizzle-kit generate",
     "db:migrate": "pnpm env:dev drizzle-kit migrate",
     "db:studio": "pnpm env:dev drizzle-kit studio",
@@ -32,6 +34,7 @@
     "@types/node": "^22.18.12",
     "dotenv-cli": "^11.0.0",
     "drizzle-kit": "^0.31.6",
+    "tsup": "^8.5.0",
     "typescript": "^5.9.3"
   }
 }
