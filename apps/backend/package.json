@@ -7,7 +7,7 @@
   "type": "module",
   "scripts": {
     "start": "node dist/server.js",
-    "dev": "pnpm env:dev node --watch src/server.ts",
+    "dev": "pnpm env:dev node --watch --experimental-transform-types src/server.ts",
     "ts:check": "tsc --noEmit",
     "build": "tsup",
     "db:generate": "pnpm env:dev drizzle-kit generate",
