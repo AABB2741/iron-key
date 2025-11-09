@@ -5,10 +5,9 @@
     "build": "turbo run build",
     "build:web": "turbo run build:web",
     "build:desktop": "turbo run build:desktop",
-    "dev": "turbo run dev",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "check-types": "turbo run check-types"
+    "docker:dev": "docker compose -f docker-compose.dev.yml up --build --wait",
+    "docker:app": "docker compose -f docker-compose.app.yml up --build --wait"
   },
   "devDependencies": {
     "prettier": "^3.6.2",

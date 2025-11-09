@@ -1,0 +1,14 @@
+services:
+  postgres:
+    image: postgres:18
+    environment:
+      POSTGRES_DB: ironkey
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/18/docker
+
+volumes:
+  postgres_data:

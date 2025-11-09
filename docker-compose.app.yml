@@ -1,0 +1,21 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: apps/desktop/dockerfile.web
+    restart: "no"
+    ports:
+      - "5173:80"
+
+  backend:
+    build:
+      context: .
+      dockerfile: apps/desktop/dockerfile
+    restart: "no"
+    ports:
+      - "3333:3333"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3333/health"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
