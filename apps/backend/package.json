@@ -6,8 +6,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node dist/server.js",
-    "dev": "pnpm env:dev node --watch --experimental-transform-types src/server.ts",
+    "start": "node src/server.ts",
+    "dev": "pnpm env:dev node --watch src/server.ts",
     "ts:check": "tsc --noEmit",
     "build": "tsup",
     "db:generate": "pnpm env:dev drizzle-kit generate",
@@ -35,7 +35,6 @@
     "@types/node": "^22.18.12",
     "dotenv-cli": "^11.0.0",
     "drizzle-kit": "^0.31.6",
-    "tsup": "^8.5.0",
     "typescript": "^5.9.3"
   }
 }

@@ -16,7 +16,6 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "moduleResolution": "node16",
-    "outDir": "./dist"
+    "moduleResolution": "node16"
   }
 }
