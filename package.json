@@ -7,7 +7,8 @@
     "build:desktop": "turbo run build:desktop",
     "lint": "turbo run lint",
     "docker:dev": "docker compose -f docker-compose.dev.yml up --wait",
-    "docker:app": "docker compose -f docker-compose.app.yml up --wait"
+    "docker:app": "docker compose -f docker-compose.app.yml up --wait",
+    "docker:down": "docker compose -f docker-compose.dev.yml -f docker-compose.app.yml down"
   },
   "devDependencies": {
     "prettier": "^3.6.2",
