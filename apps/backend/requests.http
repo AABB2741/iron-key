@@ -1,0 +1,18 @@
+### Sign Up
+POST http://localhost:3333/sign-up
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "johna.doe@examaple.com",
+  "password": "password123"
+}
+
+### Sign In
+POST http://localhost:3333/sign-in
+Content-Type: application/json
+
+{
+  "email": "johna.doe@example.com",
+  "password": "password123"
+}

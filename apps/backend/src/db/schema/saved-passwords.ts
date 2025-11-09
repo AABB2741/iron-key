@@ -1,22 +1,13 @@
 import { pgTable, uuid, timestamp, text, index } from "drizzle-orm/pg-core";
+import { user } from "./auth-schema.ts";
 
-export const users = pgTable("users", {
-	id: uuid().primaryKey().defaultRandom(),
-	name: text().notNull(),
-	email: text().notNull().unique(),
-	passwordHash: text().notNull(),
-	createdAt: timestamp({ precision: 3, withTimezone: true })
-		.defaultNow()
-		.notNull(),
-});
-
-export const passwords = pgTable(
+const passwords = pgTable(
 	"saved_passwords",
 	{
 		id: uuid().primaryKey().defaultRandom(),
 		userId: uuid()
 			.notNull()
-			.references(() => users.id, {
+			.references(() => user.id, {
 				onDelete: "cascade",
 				onUpdate: "cascade",
 			}),

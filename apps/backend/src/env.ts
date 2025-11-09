@@ -8,10 +8,13 @@ const envSchema = z.object({
 		.default("production"),
 
 	PORT: z.coerce.number().default(3333),
-	LOGGER: loggerLevel.default("info"),
 	WEB_URL: z.url(),
+	API_URL: z.url(),
+	LOGGER: loggerLevel.default("info"),
 
 	DATABASE_URL: z.url(),
+
+	BETTER_AUTH_SECRET: z.string(),
 });
 
 export const env = envSchema.parse(process.env);
