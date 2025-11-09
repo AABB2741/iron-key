@@ -9,6 +9,10 @@ import {
 import scalarAPIReference from "@scalar/fastify-api-reference";
 
 import { env } from "./env.ts";
+import fastifyCors from "@fastify/cors";
+import { errorHandler } from "./error-handler.ts";
+import { signUpRoute } from "./routes/sign-up.ts";
+import { signInRoute } from "./routes/sign-in.ts";
 
 export const app = fastify({
 	logger: {
@@ -22,6 +26,14 @@ export const app = fastify({
 		},
 	},
 }).withTypeProvider<ZodTypeProvider>();
+
+app.setValidatorCompiler(validatorCompiler);
+app.setSerializerCompiler(serializerCompiler);
+
+app.register(fastifyCors, {
+	origin: env.WEB_URL,
+	methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+});
 
 if (env.NODE_ENV === "development") {
 	app.register(fastifySwagger, {
@@ -43,5 +55,9 @@ if (env.NODE_ENV === "development") {
 	});
 }
 
-app.setValidatorCompiler(validatorCompiler);
-app.setSerializerCompiler(serializerCompiler);
+app.setErrorHandler(errorHandler);
+
+app.get("/", () => "Ok");
+
+app.register(signUpRoute);
+app.register(signInRoute);
