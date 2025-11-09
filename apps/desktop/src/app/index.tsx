@@ -8,10 +8,10 @@ import {
   SaveIcon,
 } from "lucide-react";
 
+import { TextField } from "@/components/form/text-field";
 import { Layout } from "@/components/layout";
 import { DesktopOnly, WebOnly } from "@/components/platform-only";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 
@@ -53,18 +53,15 @@ function Index() {
 
       <div className="flex gap-6 items-start">
         <Layout.Card className="flex-1">
-          <div className="space-y-2">
-            <p>Gerador de senhas</p>
-            <div className="flex gap-2">
-              <Input
-                className="flex-1"
-                placeholder="Gere uma senha para vê-la aqui"
-              />
-              <Button>
-                <CopyIcon className="text-muted-foreground size-4" />
-              </Button>
-            </div>
-          </div>
+          <TextField
+            label="Gerador de senhas"
+            placeholder="Gere uma senha para vê-la aqui"
+            options={[
+              {
+                icon: CopyIcon,
+              },
+            ]}
+          />
 
           <div className="space-y-2">
             <div className="flex items-center justify-between gap-4">
