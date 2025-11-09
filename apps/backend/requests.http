@@ -13,6 +13,6 @@ POST http://localhost:3333/sign-in
 Content-Type: application/json
 
 {
-  "email": "johna.doe@example.com",
+  "email": "johna.doe@examaple.com",
   "password": "password123"
 }
