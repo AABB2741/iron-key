@@ -1,12 +1,10 @@
 FROM node:24-alpine AS base
 
+WORKDIR /base
+
 RUN apk update
 RUN apk add --no-cache libc6-compat
 RUN npm i -g pnpm turbo
-
-FROM base AS pruner
-
-WORKDIR /app
 
 COPY . .
 RUN turbo prune desktop --docker
@@ -15,11 +13,15 @@ FROM base AS builder
 
 WORKDIR /app
 
-COPY --from=pruner /app/out/json .
+COPY --from=base /base/out/json .
 COPY turbo.json .
 RUN pnpm install --frozen-lockfile
-COPY --from=pruner /app/out/full .
+COPY --from=base /base/out/full .
 RUN pnpm build:web
+
+FROM scratch AS output
+
+COPY --from=builder /app/apps/desktop/dist .
 
 FROM nginx:stable-alpine3.21 AS runner
 
