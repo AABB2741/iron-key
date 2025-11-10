@@ -10,7 +10,6 @@
     "start:dev": "pnpm env:dev node src/server.ts",
     "dev": "pnpm env:dev node --watch src/server.ts",
     "ts:check": "tsc --noEmit",
-    "build": "tsup",
     "db:generate": "pnpm env:dev drizzle-kit generate",
     "db:migrate": "pnpm env:dev drizzle-kit migrate",
     "db:studio": "pnpm env:dev drizzle-kit studio",

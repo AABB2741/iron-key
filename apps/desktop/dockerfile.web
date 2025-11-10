@@ -17,6 +17,10 @@ COPY --from=base /base/out/json .
 COPY turbo.json .
 RUN pnpm install --frozen-lockfile
 COPY --from=base /base/out/full .
+
+ENV VITE_API_URL=
+ENV VITE_WEB_URL=
+
 RUN pnpm build:web
 
 FROM scratch AS output

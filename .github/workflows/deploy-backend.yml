@@ -1,0 +1,24 @@
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-backend:
+    name: "Deploy Backend App to Azure"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Login to Azure Container Registry
+        run: echo ${{ secrets.ACR_PASSWORD }} | docker login ironkey.azurecr.io --username ${{ secrets.ACR_USERNAME }} --password-stdin
+
+      - name: Build Docker Image
+        run: |
+          docker build -f apps/backend/dockerfile -t ironkey.azurecr.io/backend:latest .
+
+      - name: Push Docker Image to ACR
+        run: docker push ironkey.azurecr.io/backend:latest
