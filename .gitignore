@@ -41,6 +41,8 @@ lerna-debug.log*
 # IAC
 .terraform/
 *.tfstate*
+*.tfvars
+!example.tfvars
 
 # Misc
 .DS_Store
