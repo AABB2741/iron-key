@@ -17,4 +17,6 @@ COPY turbo.json .
 RUN pnpm install --prod --frozen-lockfile
 COPY --from=base /base/out/full .
 
+EXPOSE 3333
+
 CMD ["pnpm", "--filter", "backend", "start"]

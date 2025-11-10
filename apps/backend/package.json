@@ -7,6 +7,7 @@
   "type": "module",
   "scripts": {
     "start": "node src/server.ts",
+    "start:dev": "pnpm env:dev node src/server.ts",
     "dev": "pnpm env:dev node --watch src/server.ts",
     "ts:check": "tsc --noEmit",
     "build": "tsup",

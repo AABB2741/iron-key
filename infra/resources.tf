@@ -44,12 +44,11 @@ resource "azurerm_linux_web_app" "backend" {
     always_on = false
 
     application_stack {
-      docker_image_name        = "${azurerm_container_registry.acr.login_server}/backend:latest"
+      docker_image_name        = "backend:latest"
       docker_registry_url      = "https://${azurerm_container_registry.acr.login_server}"
       docker_registry_username = azurerm_container_registry.acr.admin_username
       docker_registry_password = azurerm_container_registry.acr.admin_password
     }
-
   }
 
   app_settings = {
@@ -60,6 +59,12 @@ resource "azurerm_linux_web_app" "backend" {
     LOGGER             = var.logger_level
     DATABASE_URL       = var.database_url
     BETTER_AUTH_SECRET = var.better_auth_secret
+  }
+
+  logs {
+    application_logs {
+      file_system_level = "Verbose"
+    }
   }
 
   tags = {
