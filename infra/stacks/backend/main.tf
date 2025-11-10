@@ -1,13 +1,7 @@
-module "arg" {
-  source = "../../modules/arg"
-
-  project_name = var.project_name
-}
-
 resource "azurerm_container_registry" "acr" {
   name                = lower(var.project_name)
-  resource_group_name = module.arg.name
-  location            = module.arg.location
+  resource_group_name = var.resource_group_name
+  location            = var.resource_group_location
   sku                 = "Basic"
   admin_enabled       = true
 
@@ -19,8 +13,8 @@ resource "azurerm_container_registry" "acr" {
 
 resource "azurerm_linux_web_app" "backend_app" {
   name                = "${lower(var.project_name)}-backend"
-  location            = module.arg.location
-  resource_group_name = module.arg.name
+  location            = var.resource_group_location
+  resource_group_name = var.resource_group_name
   service_plan_id     = azurerm_service_plan.app_service_plan.id
 
   site_config {
@@ -58,8 +52,8 @@ resource "azurerm_linux_web_app" "backend_app" {
 
 resource "azurerm_service_plan" "app_service_plan" {
   name                = "${lower(var.project_name)}-service-plan"
-  location            = module.arg.location
-  resource_group_name = module.arg.name
+  location            = var.resource_group_location
+  resource_group_name = var.resource_group_name
   os_type             = "Linux"
   sku_name            = "F1"
 
