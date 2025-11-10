@@ -1,0 +1,43 @@
+variable "project_name" {
+  type        = string
+  default     = "IronKey"
+  description = "The name of the project."
+}
+
+variable "node_env" {
+  type        = string
+  description = "The Node.js environment (e.g., development, production)."
+}
+
+variable "port" {
+  type        = string
+  description = "The port on which the application will run (inside the container). Only change this if necessary."
+}
+
+variable "web_url" {
+  type        = string
+  description = "The URL of the web application."
+}
+
+variable "api_url" {
+  type        = string
+  description = "The URL of the API."
+}
+
+variable "logger_level" {
+  type        = string
+  default     = "info"
+  description = "The logging level for the application (e.g., info, warn, error)."
+}
+
+variable "database_url" {
+  type        = string
+  description = "The database connection URL."
+  sensitive   = true
+}
+
+variable "better_auth_secret" {
+  type        = string
+  description = "The secret key for BetterAuth."
+  sensitive   = true
+}
