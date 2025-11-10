@@ -25,3 +25,4 @@ jobs:
           app_location: "apps/desktop"
           output_location: "dist"
           production_branch: "main"
+          skip_app_build: true
