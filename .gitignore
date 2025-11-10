@@ -38,6 +38,10 @@ lerna-debug.log*
 # Tanstack
 .tanstack
 
+# IAC
+.terraform/
+*.tfstate*
+
 # Misc
 .DS_Store
 *.pem

@@ -9,6 +9,7 @@ apps/desktop/.tanstack/
 
 .git/
 .vscode/
+infra/
 
 # Rust build artifacts
 apps/desktop/src-tauri/Cargo.lock
