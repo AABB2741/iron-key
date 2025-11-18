@@ -5,8 +5,9 @@ module "arg" {
 }
 
 module "backend" {
-  source = "./stacks/backend"
+  source = "./apps/backend"
 
+  project_name            = var.project_name
   resource_group_name     = module.arg.name
   resource_group_location = module.arg.location
 
@@ -20,8 +21,9 @@ module "backend" {
 }
 
 module "web" {
-  source = "./stacks/web"
+  source = "./apps/web"
 
+  project_name            = var.project_name
   resource_group_name     = module.arg.name
   resource_group_location = module.arg.location
 

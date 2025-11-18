@@ -7,13 +7,5 @@
     {
       "mode": "auto"
     }
-  ],
-  "emeraldwalk.runonsave": {
-    "commands": [
-      {
-        "match": "\\.(tf|tfvars)$",
-        "cmd": "terraform fmt ${fileDirname}"
-      }
-    ]
-  }
+  ]
 }

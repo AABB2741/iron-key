@@ -1,5 +1,5 @@
 resource "azurerm_linux_web_app" "backend_app" {
-  name                = "${lower(var.project_name)}-backend"
+  name                = "${var.project_name}-backend"
   location            = var.resource_group_location
   resource_group_name = var.resource_group_name
   service_plan_id     = azurerm_service_plan.app_service_plan.id
@@ -38,7 +38,7 @@ resource "azurerm_linux_web_app" "backend_app" {
 }
 
 resource "azurerm_service_plan" "app_service_plan" {
-  name                = "${lower(var.project_name)}-service-plan"
+  name                = "${var.project_name}-service-plan"
   location            = var.resource_group_location
   resource_group_name = var.resource_group_name
   os_type             = "Linux"

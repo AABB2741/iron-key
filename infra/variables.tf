@@ -1,6 +1,6 @@
 variable "project_name" {
   type    = string
-  default = "IronKey"
+  default = "ironkey"
 }
 
 variable "node_env" {

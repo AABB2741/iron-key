@@ -1,5 +1,5 @@
 resource "azurerm_static_web_app" "web_app" {
-  name = "${lower(var.project_name)}-web"
+  name = "${var.project_name}-web"
 
   resource_group_name = var.resource_group_name
   location            = var.location

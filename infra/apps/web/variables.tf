@@ -9,9 +9,7 @@ variable "resource_group_location" {
 }
 
 variable "project_name" {
-  type        = string
-  default     = "IronKey"
-  description = "The name of the project."
+  type = string
 }
 
 variable "location" {

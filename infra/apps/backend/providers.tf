@@ -3,5 +3,9 @@ terraform {
     azapi = {
       source = "azure/azapi"
     }
+
+    random = {
+      source = "hashicorp/random"
+    }
   }
 }

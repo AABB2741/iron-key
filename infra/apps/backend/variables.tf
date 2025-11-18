@@ -1,16 +1,3 @@
-variable "database_location" {
-  type        = string
-  default     = "East US 2"
-  description = "The location for the database server."
-}
-
-variable "database_password" {
-  type        = string
-  default     = null
-  description = "The password for the database server."
-  sensitive   = true
-}
-
 variable "resource_group_name" {
   type        = string
   description = "The name of the resource group."
@@ -22,9 +9,7 @@ variable "resource_group_location" {
 }
 
 variable "project_name" {
-  type        = string
-  default     = "IronKey"
-  description = "The name of the project."
+  type = string
 }
 
 variable "node_env" {
