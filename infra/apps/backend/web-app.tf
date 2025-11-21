@@ -1,6 +1,6 @@
 resource "azurerm_linux_web_app" "backend_app" {
   name                = "${var.project_name}-backend"
-  location            = var.resource_group_location
+  location            = data.azurerm_resource_group.rg.location
   resource_group_name = var.resource_group_name
   service_plan_id     = azurerm_service_plan.app_service_plan.id
 
@@ -39,7 +39,7 @@ resource "azurerm_linux_web_app" "backend_app" {
 
 resource "azurerm_service_plan" "app_service_plan" {
   name                = "${var.project_name}-service-plan"
-  location            = var.resource_group_location
+  location            = data.azurerm_resource_group.rg.location
   resource_group_name = var.resource_group_name
   os_type             = "Linux"
   sku_name            = "F1"
