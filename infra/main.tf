@@ -7,9 +7,8 @@ module "arg" {
 module "backend" {
   source = "./apps/backend"
 
-  project_name            = var.project_name
-  resource_group_name     = module.arg.name
-  resource_group_location = module.arg.location
+  project_name        = var.project_name
+  resource_group_name = module.arg.name
 
   node_env           = var.node_env
   port               = var.port
@@ -23,9 +22,8 @@ module "backend" {
 module "web" {
   source = "./apps/web"
 
-  project_name            = var.project_name
-  resource_group_name     = module.arg.name
-  resource_group_location = module.arg.location
+  project_name        = var.project_name
+  resource_group_name = module.arg.name
 
   api_url = var.api_url
 }
