@@ -13,6 +13,13 @@ module "web" {
   api_url = var.api_url
 }
 
+module "desktop" {
+  source = "./apps/desktop"
+
+  project_name        = var.project_name
+  resource_group_name = module.arg.name
+}
+
 
 module "backend" {
   source = "./apps/backend"
