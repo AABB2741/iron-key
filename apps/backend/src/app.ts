@@ -13,6 +13,7 @@ import fastifyCors from "@fastify/cors";
 import { errorHandler } from "./error-handler.ts";
 import { signUpRoute } from "./routes/sign-up.ts";
 import { signInRoute } from "./routes/sign-in.ts";
+import { getSavedPasswordsRoute } from "./routes/get-saved-passwords.ts";
 
 export const app = fastify({
 	logger: {
@@ -61,3 +62,4 @@ app.get("/", () => "Ok");
 
 app.register(signUpRoute);
 app.register(signInRoute);
+app.register(getSavedPasswordsRoute);

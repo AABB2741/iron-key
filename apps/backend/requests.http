@@ -16,3 +16,7 @@ Content-Type: application/json
   "email": "johna.doe@examaple.com",
   "password": "password123"
 }
+
+### Get Saved Passwords
+GET http://localhost:3333/passwords
+Authorization: Bearer coIkOJ21IM9JXnWFg2txI5MuF2rWydOf
