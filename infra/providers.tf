@@ -5,6 +5,11 @@ terraform {
       version = "4.52.0"
     }
 
+    neon = {
+      source  = "kislerdm/neon"
+      version = "0.12.0"
+    }
+
     random = {
       source  = "hashicorp/random"
       version = "3.7.2"
@@ -18,3 +23,7 @@ provider "azurerm" {
 }
 
 provider "random" {}
+
+provider "neon" {
+  api_key = var.neon_api_key
+}

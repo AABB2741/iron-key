@@ -1,34 +1,31 @@
-# resource "random_password" "db_password" {
-#   length           = 16
-#   special          = true
-#   override_special = "_%@"
-# }
+resource "neon_project" "postgres_project" {
+  name   = "${var.project_name}-postgres"
+  org_id = var.neon_org_id
 
-# Resolve the resource group by name so we can pass its full resource ID
-data "azurerm_resource_group" "rg" {
-  name = var.resource_group_name
-}
+  region_id                 = "aws-us-east-1"
+  pg_version                = 18
+  history_retention_seconds = 21600
 
-resource "azapi_resource" "neon_org" {
-  type      = "Neon.Postgres/organizations@2025-06-23-preview"
-  name      = "${var.project_name}-neon-org"
-  parent_id = data.azurerm_resource_group.rg.id
-  location  = "eastus2"
-
-  tags = {
-    IAC     = true
-    Project = var.project_name
+  default_endpoint_settings {
+    autoscaling_limit_max_cu = 2
   }
 }
 
-resource "azapi_resource" "neon_postgres" {
-  name      = "${var.project_name}-neon-postgres"
-  type      = "Neon.Postgres/organizations/projects@2025-06-23-preview"
-  parent_id = azapi_resource.neon_org.id
+resource "neon_branch" "postgres_branch" {
+  name       = "main"
+  project_id = neon_project.postgres_project.id
+}
 
-  body = {
-    properties = {
-      pgVersion = 17
-    }
-  }
+resource "neon_role" "postgres_role" {
+  name       = "${var.project_name}-role"
+  project_id = neon_project.postgres_project.id
+  branch_id  = neon_branch.postgres_branch.id
+}
+
+resource "neon_database" "postgres_database" {
+  name = "${var.project_name}-db"
+
+  project_id = neon_project.postgres_project.id
+  branch_id  = neon_branch.postgres_branch.id
+  owner_name = neon_role.postgres_role.name
 }

@@ -1,3 +1,12 @@
+variable "neon_api_key" {
+  type      = string
+  sensitive = true
+}
+
+variable "neon_org_id" {
+  type = string
+}
+
 variable "project_name" {
   type    = string
   default = "ironkey"

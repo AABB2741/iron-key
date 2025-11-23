@@ -1,5 +1,7 @@
 # Rename this file to prod.tfvars
 
+neon_api_key = ""
+
 node_env           = "production"
 port               = "3333"
 web_url            = "https://ironkey-web.azurewebsites.net/"

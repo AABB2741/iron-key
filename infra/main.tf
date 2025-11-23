@@ -10,6 +10,8 @@ module "backend" {
   project_name        = var.project_name
   resource_group_name = module.arg.name
 
+  neon_org_id = var.neon_org_id
+
   node_env           = var.node_env
   port               = var.port
   web_url            = var.web_url
