@@ -1,19 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import {
-  CopyIcon,
-  DownloadIcon,
-  LockIcon,
-  LogInIcon,
-  RefreshCcwIcon,
-  SaveIcon,
-} from "lucide-react";
+import { DownloadIcon, LockIcon, LogInIcon } from "lucide-react";
 
-import { TextField } from "@/components/form/text-field";
 import { Layout } from "@/components/layout";
 import { DesktopOnly, WebOnly } from "@/components/platform-only";
 import { Button } from "@/components/ui/button";
-import { Slider } from "@/components/ui/slider";
-import { Switch } from "@/components/ui/switch";
+import { PasswordGeneratorCard } from "@/features/password/components/password-generator-card";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -51,59 +42,8 @@ function Index() {
         </p>
       </div>
 
-      <div className="flex gap-6 items-start">
-        <Layout.Card className="flex-1">
-          <TextField
-            label="Gerador de senhas"
-            placeholder="Gere uma senha para vê-la aqui"
-            options={[
-              {
-                icon: CopyIcon,
-              },
-            ]}
-          />
-
-          <div className="space-y-2">
-            <div className="flex items-center justify-between gap-4">
-              <p>Comprimento</p>
-              <p className="text-muted-foreground text-sm">16</p>
-            </div>
-            <Slider />
-          </div>
-
-          <div className="space-y-2">
-            <label htmlFor="">Opções</label>
-            <div className="flex justify-between gap-4 items-center">
-              <p>Letras maiúsculas (A-Z)</p>
-              <Switch />
-            </div>
-            <div className="flex justify-between gap-4 items-center">
-              <p>Letras minúsculas (a-z)</p>
-              <Switch />
-            </div>
-            <div className="flex justify-between gap-4 items-center">
-              <p>Números (0-9)</p>
-              <Switch />
-            </div>
-            <div className="flex justify-between gap-4 items-center">
-              <p>Símbolos (!@#$%...)</p>
-              <Switch />
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <Button className="flex-1" variant="primary">
-              <RefreshCcwIcon />
-              <span>Gerar senha</span>
-            </Button>
-            <DesktopOnly>
-              <Button>
-                <SaveIcon />
-                <span>Salvar senha</span>
-              </Button>
-            </DesktopOnly>
-          </div>
-        </Layout.Card>
+      <div className="flex flex-col items-stretch gap-6 md:flex-row md:items-start">
+        <PasswordGeneratorCard />
         <Layout.Card className="flex-1">
           <div className="flex justify-center items-center text-center flex-col gap-2">
             <LockIcon className="size-12 text-muted-foreground" />
