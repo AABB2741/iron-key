@@ -22,11 +22,6 @@ variable "port" {
   description = "The port on which the application will run. Modify only if necessary."
 }
 
-variable "web_url" {
-  type        = string
-  description = "The URL where the web application will be hosted."
-}
-
 variable "api_url" {
   type        = string
   description = "The URL where the API will be hosted."
