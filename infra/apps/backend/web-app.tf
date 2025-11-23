@@ -21,7 +21,7 @@ resource "azurerm_linux_web_app" "backend_app" {
     WEB_URL            = var.web_url
     API_URL            = var.api_url
     LOGGER             = var.logger_level
-    DATABASE_URL       = var.database_url
+    DATABASE_URL       = neon_project.postgres_project.connection_uri
     BETTER_AUTH_SECRET = var.better_auth_secret
   }
 

@@ -37,12 +37,6 @@ variable "logger_level" {
   description = "The logging level for the application (e.g., info, warn, error)."
 }
 
-variable "database_url" {
-  type        = string
-  description = "The database connection URL."
-  sensitive   = true
-}
-
 variable "better_auth_secret" {
   type        = string
   description = "The secret key for BetterAuth."
