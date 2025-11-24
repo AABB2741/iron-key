@@ -11,3 +11,9 @@ resource "azurerm_storage_account" "desktop_storage_account" {
     IAC     = true
   }
 }
+
+resource "azurerm_storage_container" "desktop_storage_container" {
+  name                  = "${var.project_name}-releases"
+  storage_account_id    = azurerm_storage_account.desktop_storage_account.id
+  container_access_type = "blob"
+}
