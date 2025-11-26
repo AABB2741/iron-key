@@ -1,0 +1,18 @@
+{
+  "routes": [
+    {
+      "route": "/**",
+      "redirect": "/index.html",
+      "statusCode": 301
+    }
+  ],
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": [
+      "/images/*",
+      "/css/*",
+      "/js/*"
+    ],
+    "statusCode": 301
+  }
+}
