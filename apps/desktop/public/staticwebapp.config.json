@@ -2,12 +2,12 @@
   "routes": [
     {
       "route": "/*",
-      "redirect": "/index.html",
+      "redirect": "/",
       "statusCode": 301
     }
   ],
   "navigationFallback": {
-    "rewrite": "/index.html",
+    "rewrite": "/",
     "exclude": [
       "/images/*",
       "/css/*",
