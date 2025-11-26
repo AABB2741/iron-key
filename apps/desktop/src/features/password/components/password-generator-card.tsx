@@ -7,6 +7,7 @@ import { DesktopOnly } from "@/components/platform-only";
 import { Button } from "@/components/ui/button";
 
 import { generatePassword } from "@/utils/generate-password";
+import { toast } from "sonner";
 import { usePasswordForm } from "./password-form";
 
 export function PasswordGeneratorCard() {
@@ -63,6 +64,18 @@ export function PasswordGeneratorCard() {
             options={[
               {
                 icon: CopyIcon,
+                disabled: !password,
+                type: "button",
+                onClick: () => {
+                  try {
+                    navigator.clipboard.writeText(password);
+                    toast.success("Copiado para a área de transferência!");
+                  } catch (error) {
+                    toast.error("Não foi possível copiar a senha.", {
+                      description: String(error),
+                    });
+                  }
+                },
               },
             ]}
           />

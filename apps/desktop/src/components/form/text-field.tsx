@@ -1,12 +1,11 @@
 import { type LucideIcon } from "lucide-react";
+import type React from "react";
 
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 
-interface TextFieldOption {
+interface TextFieldOption extends React.ComponentProps<"button"> {
   icon: LucideIcon;
-  value?: string;
-  onClick?: () => void;
 }
 
 interface TextFieldProps extends React.ComponentProps<"input"> {
@@ -20,8 +19,8 @@ export function TextField({ label, options, ...props }: TextFieldProps) {
       {!!label && <p>{label}</p>}
       <div className="flex gap-2">
         <Input className="flex-1" {...props} />
-        {options?.map(({ icon: Icon, onClick }, index) => (
-          <Button onClick={onClick} key={index}>
+        {options?.map(({ icon: Icon, ...props }, index) => (
+          <Button {...props} key={index}>
             <Icon className="text-muted-foreground size-4" />
           </Button>
         ))}
