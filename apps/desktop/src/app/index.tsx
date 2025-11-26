@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { DownloadIcon, LockIcon, LogInIcon } from "lucide-react";
 
 import { Layout } from "@/components/layout";
@@ -12,26 +12,27 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <Layout.Container className="space-y-6">
+    <Layout.Container>
       <header className="flex gap-4 justify-end">
         <WebOnly>
-          <a
+          <Link
+            to="/download"
             className="bg-muted p-2 rounded-md flex gap-2 items-center"
-            href="#"
-            target="_blank"
           >
             <DownloadIcon className="size-4" />
             <p className="text-sm">
               Baixe o app desktop para salvar e acessar as senhas localmente e
               offline.
             </p>
-          </a>
+          </Link>
         </WebOnly>
         <DesktopOnly>
-          <Button>
-            <LogInIcon />
-            <span>Entrar</span>
-          </Button>
+          <Link to="/auth/login">
+            <Button>
+              <LogInIcon />
+              <span>Entrar</span>
+            </Button>
+          </Link>
         </DesktopOnly>
       </header>
 

@@ -6,6 +6,9 @@ export function Container({
   ...props
 }: React.ComponentProps<"main">) {
   return (
-    <main className={twMerge("w-screen max-w-7xl p-6", className)} {...props} />
+    <main
+      className={twMerge("w-screen max-w-7xl p-6 space-y-6", className)}
+      {...props}
+    />
   );
 }
