@@ -9,7 +9,7 @@ import { requireAuthentication } from "./hooks/require-authentication.ts";
 
 export const savePasswordRoute: FastifyPluginAsyncZod = async (app) => {
 	app.post(
-		"/save-password",
+		"/passwords",
 		{
 			preHandler: [requireAuthentication],
 			schema: {
@@ -22,12 +22,7 @@ export const savePasswordRoute: FastifyPluginAsyncZod = async (app) => {
 					password: z.string(),
 				}),
 				response: {
-					[HTTP_CREATED]: z.object({
-						name: z.string().nullable(),
-						login: z.string().nullable(),
-						siteUrl: z.string().nullable(),
-						password: z.string(),
-					}),
+					[HTTP_CREATED]: z.null(),
 				},
 			},
 		},
@@ -36,24 +31,16 @@ export const savePasswordRoute: FastifyPluginAsyncZod = async (app) => {
 
 			const encryptedPassword = encrypt(password);
 
-			const result = await db
-				.insert(savedPasswords)
-				.values({
-					id: crypto.randomUUID(),
-					name,
-					login,
-					encryptedPassword,
-					siteUrl,
-					userId: request.user.id,
-				})
-				.returning();
-
-			return reply.status(HTTP_CREATED).send({
-				name: result[0].name,
-				login: result[0].login,
-				siteUrl: result[0].siteUrl,
-				password: result[0].encryptedPassword,
+			await db.insert(savedPasswords).values({
+				id: crypto.randomUUID(),
+				name,
+				login,
+				encryptedPassword,
+				siteUrl,
+				userId: request.user.id,
 			});
+
+			return reply.status(HTTP_CREATED).send();
 		}
 	);
 };
