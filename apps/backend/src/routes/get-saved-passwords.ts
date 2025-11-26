@@ -3,8 +3,9 @@ import { eq } from "drizzle-orm";
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
 
 import { db } from "../db/client.ts";
+import { decrypt } from "../lib/crypto.ts";
 import { HTTP_OK } from "../constants/http/codes.ts";
-import { savedPassword } from "../db/schema/saved-passwords.ts";
+import { savedPasswords } from "../db/schema/saved-passwords.ts";
 import { requireAuthentication } from "./hooks/require-authentication.ts";
 
 export const getSavedPasswordsRoute: FastifyPluginAsyncZod = async (app) => {
@@ -17,13 +18,13 @@ export const getSavedPasswordsRoute: FastifyPluginAsyncZod = async (app) => {
 				tags: ["passwords"],
 				response: {
 					[HTTP_OK]: z.object({
-						passwords: z.array(
+						savedPasswords: z.array(
 							z.object({
 								id: z.string(),
 								name: z.string().nullable(),
 								login: z.string().nullable(),
 								siteUrl: z.string().nullable(),
-								encryptedPassword: z.string(),
+								password: z.string(),
 								createdAt: z.date(),
 								updatedAt: z.date(),
 							})
@@ -35,18 +36,28 @@ export const getSavedPasswordsRoute: FastifyPluginAsyncZod = async (app) => {
 		async (request, reply) => {
 			const passwords = await db
 				.select({
-					id: savedPassword.id,
-					name: savedPassword.name,
-					login: savedPassword.login,
-					siteUrl: savedPassword.siteUrl,
-					encryptedPassword: savedPassword.encryptedPassword,
-					createdAt: savedPassword.createdAt,
-					updatedAt: savedPassword.updatedAt,
+					id: savedPasswords.id,
+					name: savedPasswords.name,
+					login: savedPasswords.login,
+					siteUrl: savedPasswords.siteUrl,
+					encryptedPassword: savedPasswords.encryptedPassword,
+					createdAt: savedPasswords.createdAt,
+					updatedAt: savedPasswords.updatedAt,
 				})
-				.from(savedPassword)
-				.where(eq(savedPassword.userId, request.user.id));
+				.from(savedPasswords)
+				.where(eq(savedPasswords.userId, request.user.id));
 
-			return reply.send({ passwords });
+			const decryptedPasswords = passwords.map((p) => ({
+				id: p.id,
+				name: p.name,
+				login: p.login,
+				siteUrl: p.siteUrl,
+				password: decrypt(p.encryptedPassword),
+				createdAt: p.createdAt,
+				updatedAt: p.updatedAt,
+			}));
+
+			return reply.send({ savedPasswords: decryptedPasswords });
 		}
 	);
 };
