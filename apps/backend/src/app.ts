@@ -15,6 +15,7 @@ import { signUpRoute } from "./routes/sign-up.ts";
 import { signInRoute } from "./routes/sign-in.ts";
 import { getSavedPasswordsRoute } from "./routes/get-saved-passwords.ts";
 import { savePasswordRoute } from "./routes/save-password.ts";
+import { deletePasswordRoute } from "./routes/delete-password.ts";
 
 export const app = fastify({
 	logger: {
@@ -65,3 +66,4 @@ app.register(signUpRoute);
 app.register(signInRoute);
 app.register(getSavedPasswordsRoute);
 app.register(savePasswordRoute);
+app.register(deletePasswordRoute);
