@@ -1,10 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { DownloadIcon, LockIcon, LogInIcon } from "lucide-react";
+import { LogInIcon } from "lucide-react";
+
+import { PasswordGeneratorCard } from "@/features/password/components/password-generator-card";
+import { SavedPasswordsCard } from "@/features/password/components/saved-passwords-card";
 
 import { Layout } from "@/components/layout";
-import { DesktopOnly, WebOnly } from "@/components/platform-only";
+import { DesktopOnly } from "@/components/platform-only";
 import { Button } from "@/components/ui/button";
-import { PasswordGeneratorCard } from "@/features/password/components/password-generator-card";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -14,18 +16,6 @@ function Index() {
   return (
     <Layout.Container>
       <header className="flex gap-4 justify-end">
-        <WebOnly>
-          <Link
-            to="/download"
-            className="bg-muted p-2 rounded-md flex gap-2 items-center"
-          >
-            <DownloadIcon className="size-4" />
-            <p className="text-sm">
-              Baixe o app desktop para salvar e acessar as senhas localmente e
-              offline.
-            </p>
-          </Link>
-        </WebOnly>
         <DesktopOnly>
           <Link to="/auth/login">
             <Button>
@@ -43,17 +33,9 @@ function Index() {
         </p>
       </div>
 
-      <div className="flex flex-col items-stretch gap-6 md:flex-row md:items-start">
+      <div className="flex flex-col items-stretch justify-center gap-6 md:flex-row md:items-start">
         <PasswordGeneratorCard />
-        <Layout.Card className="flex-1">
-          <div className="flex justify-center items-center text-center flex-col gap-2">
-            <LockIcon className="size-12 text-muted-foreground" />
-            <p className="text-lg">Nenhuma senha salva ainda</p>
-            <p className="text-sm text-muted-foreground">
-              Gere uma senha e clique em "Salvar" para começar.
-            </p>
-          </div>
-        </Layout.Card>
+        <SavedPasswordsCard />
       </div>
 
       <footer>
