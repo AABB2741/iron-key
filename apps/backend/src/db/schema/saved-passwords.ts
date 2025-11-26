@@ -1,8 +1,8 @@
 import { pgTable, text, timestamp, index } from "drizzle-orm/pg-core";
 import { user } from "./auth-schema.ts";
 
-export const savedPassword = pgTable(
-	"saved_password",
+export const savedPasswords = pgTable(
+	"saved_passwords",
 	{
 		id: text("id").primaryKey(),
 		userId: text("user_id")
