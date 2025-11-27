@@ -1,7 +1,10 @@
 import { CopyIcon, EyeIcon, PenIcon, Trash2Icon } from "lucide-react";
 
+import { TextField } from "@/components/form/text-field";
 import { Layout } from "@/components/layout";
 import { Button } from "@/components/ui/button";
+import { Modal } from "@/components/ui/modal";
+import { Separator } from "@/components/ui/separator";
 
 export function Password() {
   return (
@@ -16,9 +19,58 @@ export function Password() {
         <Button size="icon">
           <CopyIcon />
         </Button>
-        <Button size="icon">
-          <EyeIcon />
-        </Button>
+        <Modal.Root>
+          <Modal.Trigger asChild>
+            <Button size="icon">
+              <EyeIcon />
+            </Button>
+          </Modal.Trigger>
+
+          <Modal.Content>
+            <Modal.Title>Nome da senha</Modal.Title>
+
+            <TextField
+              label="Senha"
+              placeholder="********"
+              autoFocus
+              options={[
+                {
+                  icon: CopyIcon,
+                },
+              ]}
+            />
+            <TextField
+              label="URL do site"
+              placeholder="https://exemplo.com"
+              options={[
+                {
+                  icon: CopyIcon,
+                },
+              ]}
+            />
+            <TextField
+              label="Login"
+              placeholder="E-mail ou nome de usuário"
+              options={[
+                {
+                  icon: CopyIcon,
+                },
+              ]}
+            />
+
+            <Separator />
+
+            <p className="text-xs text-muted-foreground">
+              Criado em 12/12/2012
+            </p>
+
+            <Modal.Close asChild>
+              <Button className="w-full" variant="primary">
+                Ok
+              </Button>
+            </Modal.Close>
+          </Modal.Content>
+        </Modal.Root>
         <Button size="icon">
           <PenIcon />
         </Button>

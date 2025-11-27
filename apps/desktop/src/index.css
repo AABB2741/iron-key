@@ -12,6 +12,7 @@ html[data-platform="desktop"] {
   --color-muted: oklch(37.2% 0.044 257.287);
   --color-muted-foreground: oklch(70.7% 0.022 261.325);
   --color-border: oklch(37.2% 0.044 257.287);
+  --color-background: oklch(20.8% 0.042 265.755);
 
   --color-primary: oklch(62.3% 0.214 259.815);
   --color-primary-foreground: oklch(88.2% 0.059 254.128);
