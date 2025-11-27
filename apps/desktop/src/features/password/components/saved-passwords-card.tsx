@@ -4,6 +4,7 @@ import { Layout } from "@/components/layout";
 import { Button } from "@/components/ui/button";
 import { isDesktop } from "@/utils/is-desktop";
 import { Link } from "@tanstack/react-router";
+import { Password } from "./password";
 
 export function SavedPasswordsCard() {
   if (!isDesktop()) {
@@ -24,6 +25,17 @@ export function SavedPasswordsCard() {
           </Link>
         </div>
       </Layout.Card>
+    );
+  }
+
+  if (0 === 0) {
+    return (
+      <div className="space-y-4 flex-1">
+        <Password />
+        <Password />
+        <Password />
+        <Password />
+      </div>
     );
   }
 

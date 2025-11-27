@@ -147,12 +147,12 @@ export function PasswordGeneratorCard() {
           </div>
 
           <div className="flex items-center gap-2">
-            <Button className="flex-1" variant="primary">
+            <Button type="submit" className="flex-1" variant="primary">
               <RefreshCcwIcon />
               <span>Gerar senha</span>
             </Button>
             <DesktopOnly>
-              <Button type="submit">
+              <Button type="button">
                 <SaveIcon />
                 <span>Salvar senha</span>
               </Button>
