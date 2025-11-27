@@ -3,8 +3,8 @@ POST http://localhost:3333/sign-up
 Content-Type: application/json
 
 {
-  "name": "John Doe",
-  "email": "johna.doe@examaple.com",
+  "name": "John Doe1",
+  "email": "johna.doe1@examaple.com",
   "password": "password123"
 }
 
@@ -13,6 +13,38 @@ POST http://localhost:3333/sign-in
 Content-Type: application/json
 
 {
-  "email": "johna.doe@examaple.com",
+  "email": "johna.doe1@examaple.com",
   "password": "password123"
 }
+
+### Save Password
+POST http://localhost:3333/passwords
+Authorization: Bearer yQMQLMlFDTj2DeeV3otakiYPMCLOhXCJ
+Content-Type: application/json
+
+{
+  "name": "Example1",
+  "login": "example_login1",
+  "siteUrl": "https://example.com1",
+  "password": "example_password1"
+}
+
+### Get Saved Passwords
+GET http://localhost:3333/passwords
+Authorization: Bearer yQMQLMlFDTj2DeeV3otakiYPMCLOhXCJ
+
+### Update Password
+PATCH http://localhost:3333/passwords/1c31516a-3617-492d-a2e5-d5c6f6386bd9
+Authorization: Bearer yQMQLMlFDTj2DeeV3otakiYPMCLOhXCJ
+Content-Type: application/json
+
+{
+  "name": "Updated Example2",
+  "login": "updated_login2",
+  "siteUrl": "https://updated-example.com",
+  "password": "updated_password"
+}
+
+### Delete Password
+DELETE http://localhost:3333/passwords/1c31516a-3617-492d-a2e5-d5c6f6386bd9
+Authorization: Bearer yQMQLMlFDTj2DeeV3otakiYPMCLOhXCJ

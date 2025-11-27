@@ -1,4 +1,5 @@
 import { betterAuth } from "better-auth";
+import { bearer } from "better-auth/plugins";
 import { localization } from "better-auth-localization";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 
@@ -19,6 +20,7 @@ export const auth = betterAuth({
 		enabled: true,
 	},
 	plugins: [
+		bearer(),
 		localization({
 			defaultLocale: "pt-BR",
 			fallbackLocale: "default",

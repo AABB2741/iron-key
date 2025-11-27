@@ -8,6 +8,20 @@
       "when": 1762725782995,
       "tag": "0000_oval_omega_red",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1763928802556,
+      "tag": "0001_unique_lockheed",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1764120224457,
+      "tag": "0002_loose_luke_cage",
+      "breakpoints": true
     }
   ]
 }
