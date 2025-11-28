@@ -31,7 +31,11 @@ Content-Type: application/json
 
 ### Get Saved Passwords
 GET http://localhost:3333/passwords
-Authorization: Bearer yQMQLMlFDTj2DeeV3otakiYPMCLOhXCJ
+Authorization: Bearer GpRz2uw7eUWd89wOLPNApkWc4c88mkCf
+
+### Get Password by ID
+GET http://localhost:3333/passwords/b6b7e259-550a-49c1-9e36-46d94c9ccb58
+Authorization: Bearer GpRz2uw7eUWd89wOLPNApkWc4c88mkCf
 
 ### Update Password
 PATCH http://localhost:3333/passwords/1c31516a-3617-492d-a2e5-d5c6f6386bd9
