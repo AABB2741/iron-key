@@ -1,5 +1,6 @@
-import { z } from "zod";
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
+
+import { createPasswordBody, createPasswordResponse } from "@ironkey/routes";
 
 import { db } from "../db/client.ts";
 import { encrypt } from "../lib/crypto.ts";
@@ -15,14 +16,9 @@ export const savePasswordRoute: FastifyPluginAsyncZod = async (app) => {
 			schema: {
 				summary: "Save a new password",
 				tags: ["passwords"],
-				body: z.object({
-					name: z.string().optional(),
-					login: z.string().optional(),
-					siteUrl: z.string().optional(),
-					password: z.string(),
-				}),
+				body: createPasswordBody,
 				response: {
-					[HTTP_CREATED]: z.null(),
+					[HTTP_CREATED]: createPasswordResponse,
 				},
 			},
 		},
