@@ -1,9 +1,9 @@
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
 
-import { signInBody, signInResponse } from "@ironkey/routes";
+import { HTTP_OK } from "@ironkey/constants/http";
+import { signInBody, signInResponse } from "@ironkey/routes/auth";
 
-import { auth } from "../lib/auth.ts";
-import { HTTP_OK } from "../constants/http/codes.ts";
+import { auth } from "../../lib/auth.ts";
 
 export const signInRoute: FastifyPluginAsyncZod = async (app) => {
 	app.post(

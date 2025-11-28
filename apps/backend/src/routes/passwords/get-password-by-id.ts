@@ -4,18 +4,18 @@ import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
 import {
 	getPasswordByIdParams,
 	getPasswordByIdResponse,
-} from "@ironkey/routes";
+} from "@ironkey/routes/passwords";
+import { HTTP_OK } from "@ironkey/constants/http";
 
-import { db } from "../db/client.ts";
-import { decrypt } from "../lib/crypto.ts";
-import { HTTP_OK } from "../constants/http/codes.ts";
-import { savedPasswords } from "../db/schema/saved-passwords.ts";
-import { NotFoundError } from "../errors/http/not-found-error.ts";
-import { requireAuthentication } from "./hooks/require-authentication.ts";
+import { db } from "../../db/client.ts";
+import { decrypt } from "../../lib/crypto.ts";
+import { savedPasswords } from "../../db/schema/saved-passwords.ts";
+import { NotFoundError } from "../../errors/http/not-found-error.ts";
+import { requireAuthentication } from "../_hooks/require-authentication.ts";
 
 export const getPasswordByIdRoute: FastifyPluginAsyncZod = async (app) => {
 	app.get(
-		"/passwords/:id",
+		"/:id",
 		{
 			preHandler: [requireAuthentication],
 			schema: {

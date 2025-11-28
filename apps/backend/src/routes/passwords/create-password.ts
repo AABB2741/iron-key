@@ -1,16 +1,19 @@
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
 
-import { createPasswordBody, createPasswordResponse } from "@ironkey/routes";
+import {
+	createPasswordBody,
+	createPasswordResponse,
+} from "@ironkey/routes/passwords";
+import { HTTP_CREATED } from "@ironkey/constants/http";
 
-import { db } from "../db/client.ts";
-import { encrypt } from "../lib/crypto.ts";
-import { HTTP_CREATED } from "../constants/http/codes.ts";
-import { savedPasswords } from "../db/schema/saved-passwords.ts";
-import { requireAuthentication } from "./hooks/require-authentication.ts";
+import { db } from "../../db/client.ts";
+import { encrypt } from "../../lib/crypto.ts";
+import { savedPasswords } from "../../db/schema/saved-passwords.ts";
+import { requireAuthentication } from "../_hooks/require-authentication.ts";
 
 export const createPasswordRoute: FastifyPluginAsyncZod = async (app) => {
 	app.post(
-		"/passwords",
+		"/",
 		{
 			preHandler: [requireAuthentication],
 			schema: {

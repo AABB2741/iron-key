@@ -5,18 +5,18 @@ import {
 	updatePasswordBody,
 	updatePasswordParams,
 	updatePasswordResponse,
-} from "@ironkey/routes";
+} from "@ironkey/routes/passwords";
+import { HTTP_OK } from "@ironkey/constants/http";
 
-import { db } from "../db/client.ts";
-import { encrypt } from "../lib/crypto.ts";
-import { HTTP_OK } from "../constants/http/codes.ts";
-import { savedPasswords } from "../db/schema/saved-passwords.ts";
-import { requireAuthentication } from "./hooks/require-authentication.ts";
-import { NotFoundError } from "../errors/http/not-found-error.ts";
+import { db } from "../../db/client.ts";
+import { encrypt } from "../../lib/crypto.ts";
+import { savedPasswords } from "../../db/schema/saved-passwords.ts";
+import { requireAuthentication } from "../_hooks/require-authentication.ts";
+import { NotFoundError } from "../../errors/http/not-found-error.ts";
 
 export const updatePasswordRoute: FastifyPluginAsyncZod = async (app) => {
 	app.patch(
-		"/passwords/:id",
+		"/:id",
 		{
 			preHandler: [requireAuthentication],
 			schema: {

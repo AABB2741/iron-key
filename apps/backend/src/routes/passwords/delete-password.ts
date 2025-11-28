@@ -1,17 +1,20 @@
 import { eq, and } from "drizzle-orm";
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
 
-import { deletePasswordParams, deletePasswordResponse } from "@ironkey/routes";
+import {
+	deletePasswordParams,
+	deletePasswordResponse,
+} from "@ironkey/routes/passwords";
+import { HTTP_NO_CONTENT } from "@ironkey/constants/http";
 
-import { db } from "../db/client.ts";
-import { HTTP_NO_CONTENT } from "../constants/http/codes.ts";
-import { savedPasswords } from "../db/schema/saved-passwords.ts";
-import { NotFoundError } from "../errors/http/not-found-error.ts";
-import { requireAuthentication } from "./hooks/require-authentication.ts";
+import { db } from "../../db/client.ts";
+import { savedPasswords } from "../../db/schema/saved-passwords.ts";
+import { NotFoundError } from "../../errors/http/not-found-error.ts";
+import { requireAuthentication } from "../_hooks/require-authentication.ts";
 
 export const deletePasswordRoute: FastifyPluginAsyncZod = async (app) => {
 	app.delete(
-		"/passwords/:id",
+		"/:id",
 		{
 			preHandler: [requireAuthentication],
 			schema: {

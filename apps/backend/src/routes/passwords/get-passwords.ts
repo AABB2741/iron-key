@@ -1,17 +1,17 @@
 import { eq } from "drizzle-orm";
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
 
-import { getPasswordsResponse } from "@ironkey/routes";
+import { getPasswordsResponse } from "@ironkey/routes/passwords";
+import { HTTP_OK } from "@ironkey/constants/http";
 
-import { db } from "../db/client.ts";
-import { decrypt } from "../lib/crypto.ts";
-import { HTTP_OK } from "../constants/http/codes.ts";
-import { savedPasswords } from "../db/schema/saved-passwords.ts";
-import { requireAuthentication } from "./hooks/require-authentication.ts";
+import { db } from "../../db/client.ts";
+import { decrypt } from "../../lib/crypto.ts";
+import { savedPasswords } from "../../db/schema/saved-passwords.ts";
+import { requireAuthentication } from "../_hooks/require-authentication.ts";
 
 export const getPasswordsRoute: FastifyPluginAsyncZod = async (app) => {
 	app.get(
-		"/passwords",
+		"/",
 		{
 			preHandler: [requireAuthentication],
 			schema: {

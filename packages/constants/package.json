@@ -1,0 +1,8 @@
+{
+  "name": "@ironkey/constants",
+  "private": true,
+  "type": "module",
+   "exports": {
+    "./http": "./src/http/index.ts"
+  }
+}

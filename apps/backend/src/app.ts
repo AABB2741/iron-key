@@ -11,13 +11,8 @@ import scalarAPIReference from "@scalar/fastify-api-reference";
 import { env } from "./env.ts";
 import fastifyCors from "@fastify/cors";
 import { errorHandler } from "./error-handler.ts";
-import { signUpRoute } from "./routes/sign-up.ts";
-import { signInRoute } from "./routes/sign-in.ts";
-import { getPasswordsRoute } from "./routes/get-passwords.ts";
-import { getPasswordByIdRoute } from "./routes/get-password-by-id.ts";
-import { createPasswordRoute } from "./routes/create-password.ts";
-import { deletePasswordRoute } from "./routes/delete-password.ts";
-import { updatePasswordRoute } from "./routes/update-password.ts";
+import { authRoutes } from "./routes/auth/routes.ts";
+import { passwordsRoutes } from "./routes/passwords/routes.ts";
 
 export const app = fastify({
 	logger: {
@@ -64,10 +59,9 @@ app.setErrorHandler(errorHandler);
 
 app.get("/", () => "Ok");
 
-app.register(signUpRoute);
-app.register(signInRoute);
-app.register(getPasswordsRoute);
-app.register(getPasswordByIdRoute);
-app.register(createPasswordRoute);
-app.register(updatePasswordRoute);
-app.register(deletePasswordRoute);
+app.register(authRoutes, {
+	prefix: "/auth",
+});
+app.register(passwordsRoutes, {
+	prefix: "/passwords",
+});

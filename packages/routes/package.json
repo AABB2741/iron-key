@@ -6,6 +6,7 @@
     "zod": "^4.1.12"
   },
   "exports": {
-    ".": "./src/index.ts"
+    "./auth": "./src/auth/index.ts",
+    "./passwords": "./src/passwords/index.ts"
   }
 }
