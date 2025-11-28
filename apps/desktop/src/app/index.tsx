@@ -5,7 +5,6 @@ import { PasswordGeneratorCard } from "@/features/password/components/password-g
 import { SavedPasswordsCard } from "@/features/password/components/saved-passwords-card";
 
 import { Layout } from "@/components/layout";
-import { DesktopOnly } from "@/components/platform-only";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/")({
@@ -16,14 +15,12 @@ function Index() {
   return (
     <Layout.Container>
       <header className="flex gap-4 justify-end">
-        <DesktopOnly>
-          <Link to="/auth/login">
-            <Button>
-              <LogInIcon />
-              <span>Entrar</span>
-            </Button>
-          </Link>
-        </DesktopOnly>
+        <Link to="/auth/login">
+          <Button>
+            <LogInIcon />
+            <span>Entrar</span>
+          </Button>
+        </Link>
       </header>
 
       <div className="text-center space-y-2">

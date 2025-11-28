@@ -3,7 +3,6 @@ import { useState } from "react";
 
 import { TextField } from "@/components/form/text-field";
 import { Layout } from "@/components/layout";
-import { DesktopOnly } from "@/components/platform-only";
 import { Button } from "@/components/ui/button";
 
 import { generatePassword } from "@/utils/generate-password";
@@ -151,12 +150,10 @@ export function PasswordGeneratorCard() {
               <RefreshCcwIcon />
               <span>Gerar senha</span>
             </Button>
-            <DesktopOnly>
-              <Button type="button">
-                <SaveIcon />
-                <span>Salvar senha</span>
-              </Button>
-            </DesktopOnly>
+            <Button type="button">
+              <SaveIcon />
+              <span>Salvar senha</span>
+            </Button>
           </div>
         </form>
       </form.AppForm>
