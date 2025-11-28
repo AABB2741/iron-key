@@ -4,7 +4,7 @@ import { tv } from "tailwind-variants";
 
 import { isDesktop } from "@/utils/is-desktop";
 
-export type ButtonVariant = "outline" | "primary";
+export type ButtonVariant = "outline" | "primary" | "destructive";
 export type ButtonSize = "base" | "icon";
 
 const container = tv({
@@ -16,6 +16,7 @@ const container = tv({
     variant: {
       outline: "border border-border",
       primary: "bg-primary text-primary-foreground",
+      destructive: "bg-destructive text-destructive-foreground",
     } satisfies Record<ButtonVariant, string>,
     size: {
       base: "h-9 min-w-9 gap-3 px-2",

@@ -2,6 +2,7 @@ import { CopyIcon, EyeIcon, PenIcon, Trash2Icon } from "lucide-react";
 
 import { Layout } from "@/components/layout";
 import { Button } from "@/components/ui/button";
+import { DeletePasswordModal } from "./delete-password-modal";
 import { EditPasswordModal } from "./edit-password-modal";
 import { ViewPasswordModal } from "./view-password-modal";
 
@@ -28,9 +29,11 @@ export function Password() {
             <PenIcon />
           </Button>
         </EditPasswordModal>
-        <Button size="icon">
-          <Trash2Icon />
-        </Button>
+        <DeletePasswordModal>
+          <Button size="icon">
+            <Trash2Icon />
+          </Button>
+        </DeletePasswordModal>
       </div>
     </Layout.Card>
   );
