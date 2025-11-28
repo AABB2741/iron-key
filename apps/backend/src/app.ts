@@ -13,7 +13,7 @@ import fastifyCors from "@fastify/cors";
 import { errorHandler } from "./error-handler.ts";
 import { signUpRoute } from "./routes/sign-up.ts";
 import { signInRoute } from "./routes/sign-in.ts";
-import { getSavedPasswordsRoute } from "./routes/get-saved-passwords.ts";
+import { getPasswordsRoute } from "./routes/get-passwords.ts";
 import { getPasswordByIdRoute } from "./routes/get-password-by-id.ts";
 import { savePasswordRoute } from "./routes/save-password.ts";
 import { deletePasswordRoute } from "./routes/delete-password.ts";
@@ -66,7 +66,7 @@ app.get("/", () => "Ok");
 
 app.register(signUpRoute);
 app.register(signInRoute);
-app.register(getSavedPasswordsRoute);
+app.register(getPasswordsRoute);
 app.register(getPasswordByIdRoute);
 app.register(savePasswordRoute);
 app.register(updatePasswordRoute);

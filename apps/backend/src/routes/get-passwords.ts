@@ -1,6 +1,7 @@
-import { z } from "zod";
 import { eq } from "drizzle-orm";
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
+
+import { getPasswordsResponse } from "@ironkey/routes";
 
 import { db } from "../db/client.ts";
 import { decrypt } from "../lib/crypto.ts";
@@ -8,28 +9,16 @@ import { HTTP_OK } from "../constants/http/codes.ts";
 import { savedPasswords } from "../db/schema/saved-passwords.ts";
 import { requireAuthentication } from "./hooks/require-authentication.ts";
 
-export const getSavedPasswordsRoute: FastifyPluginAsyncZod = async (app) => {
+export const getPasswordsRoute: FastifyPluginAsyncZod = async (app) => {
 	app.get(
 		"/passwords",
 		{
 			preHandler: [requireAuthentication],
 			schema: {
-				summary: "Get all saved passwords",
+				summary: "Get saved passwords",
 				tags: ["passwords"],
 				response: {
-					[HTTP_OK]: z.object({
-						savedPasswords: z.array(
-							z.object({
-								id: z.string(),
-								name: z.string().nullable(),
-								login: z.string().nullable(),
-								siteUrl: z.string().nullable(),
-								password: z.string(),
-								createdAt: z.date(),
-								updatedAt: z.date(),
-							})
-						),
-					}),
+					[HTTP_OK]: getPasswordsResponse,
 				},
 			},
 		},
@@ -57,7 +46,7 @@ export const getSavedPasswordsRoute: FastifyPluginAsyncZod = async (app) => {
 				updatedAt: p.updatedAt,
 			}));
 
-			return reply.send({ savedPasswords: decryptedPasswords });
+			return reply.send({ passwords: decryptedPasswords });
 		}
 	);
 };
