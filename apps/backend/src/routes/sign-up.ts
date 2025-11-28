@@ -1,8 +1,8 @@
-import z from "zod";
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
 
+import { signUpBody, signUpResponse } from "@ironkey/routes";
+
 import { auth } from "../lib/auth.ts";
-import { userValidation } from "../schemas/user.ts";
 import { HTTP_NO_CONTENT } from "../constants/http/codes.ts";
 
 export const signUpRoute: FastifyPluginAsyncZod = async (app) => {
@@ -12,9 +12,9 @@ export const signUpRoute: FastifyPluginAsyncZod = async (app) => {
 			schema: {
 				summary: "Sign-up",
 				tags: ["session"],
-				body: userValidation.pick({ name: true, email: true, password: true }),
+				body: signUpBody,
 				response: {
-					[HTTP_NO_CONTENT]: z.null(),
+					[HTTP_NO_CONTENT]: signUpResponse,
 				},
 			},
 		},

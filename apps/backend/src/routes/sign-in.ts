@@ -1,9 +1,8 @@
-import z from "zod";
-import { userSchema } from "better-auth/db";
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
 
+import { signInBody, signInResponse } from "@ironkey/routes";
+
 import { auth } from "../lib/auth.ts";
-import { userValidation } from "../schemas/user.ts";
 import { HTTP_OK } from "../constants/http/codes.ts";
 
 export const signInRoute: FastifyPluginAsyncZod = async (app) => {
@@ -13,16 +12,9 @@ export const signInRoute: FastifyPluginAsyncZod = async (app) => {
 			schema: {
 				summary: "Sign-in",
 				tags: ["session"],
-				body: userValidation.pick({ email: true, password: true }),
+				body: signInBody,
 				response: {
-					[HTTP_OK]: z.object({
-						user: userSchema.pick({
-							id: true,
-							name: true,
-							email: true,
-						}),
-						token: z.string(),
-					}),
+					[HTTP_OK]: signInResponse,
 				},
 			},
 		},
