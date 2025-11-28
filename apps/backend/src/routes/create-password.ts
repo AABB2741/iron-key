@@ -8,13 +8,13 @@ import { HTTP_CREATED } from "../constants/http/codes.ts";
 import { savedPasswords } from "../db/schema/saved-passwords.ts";
 import { requireAuthentication } from "./hooks/require-authentication.ts";
 
-export const savePasswordRoute: FastifyPluginAsyncZod = async (app) => {
+export const createPasswordRoute: FastifyPluginAsyncZod = async (app) => {
 	app.post(
 		"/passwords",
 		{
 			preHandler: [requireAuthentication],
 			schema: {
-				summary: "Save a new password",
+				summary: "Create a password",
 				tags: ["passwords"],
 				body: createPasswordBody,
 				response: {

@@ -15,7 +15,7 @@ import { signUpRoute } from "./routes/sign-up.ts";
 import { signInRoute } from "./routes/sign-in.ts";
 import { getPasswordsRoute } from "./routes/get-passwords.ts";
 import { getPasswordByIdRoute } from "./routes/get-password-by-id.ts";
-import { savePasswordRoute } from "./routes/save-password.ts";
+import { createPasswordRoute } from "./routes/create-password.ts";
 import { deletePasswordRoute } from "./routes/delete-password.ts";
 import { updatePasswordRoute } from "./routes/update-password.ts";
 
@@ -68,6 +68,6 @@ app.register(signUpRoute);
 app.register(signInRoute);
 app.register(getPasswordsRoute);
 app.register(getPasswordByIdRoute);
-app.register(savePasswordRoute);
+app.register(createPasswordRoute);
 app.register(updatePasswordRoute);
 app.register(deletePasswordRoute);
