@@ -1,4 +1,4 @@
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import {
   CheckIcon,
   CloudIcon,
@@ -25,15 +25,12 @@ function RouteComponent() {
     <>
       <header className="p-4 border-b border-border flex justify-between">
         <div>
-          <p>IronKey</p>
+          <p className="font-bold">IronKey</p>
         </div>
         <nav>
           <ul>
             <li>
-              <a href="#">Login</a>
-            </li>
-            <li>
-              <a href="#">Gerador online</a>
+              <Link to="/">Gerador online</Link>
             </li>
           </ul>
         </nav>
@@ -132,7 +129,7 @@ function RouteComponent() {
         </section>
 
         <section className="text-center space-y-6">
-          <h2 className="font-bold text-3xl">Recursos incluídos</h2>
+          <h2 className="font-bold text-3xl">Vantagens de usar o IronKey</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 mx-auto max-w-[750px] gap-x-8 gap-y-6">
             <div className="flex items-center gap-4 text-left">
               <CheckIcon className="text-success" />
@@ -144,7 +141,7 @@ function RouteComponent() {
             </div>
             <div className="flex items-center gap-4 text-left">
               <CheckIcon className="text-success" />
-              <span>Multiplataforma (Windows, Mac, Linux)</span>
+              <span>Multiplataforma (Windows, Mac, Linux e navegadores)</span>
             </div>
             <div className="flex items-center gap-4 text-left">
               <CheckIcon className="text-success" />
