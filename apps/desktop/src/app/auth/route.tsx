@@ -10,16 +10,18 @@ export const Route = createFileRoute("/auth")({
 function RouteComponent() {
   return (
     <Layout.Container>
-      <Link
-        className="flex items-center gap-2 text-sm max-w-[400px] mx-auto"
-        to="/"
-      >
-        <ArrowLeftIcon className="size-4 text-muted-foreground" />
-        <span className="text-muted-foreground">Voltar</span>
-      </Link>
-      <Layout.Card className="p-12 max-w-[400px] mx-auto">
-        <Outlet />
-      </Layout.Card>
+      <div className="space-y-6">
+        <Link
+          className="flex items-center gap-2 text-sm max-w-[400px] mx-auto"
+          to="/"
+        >
+          <ArrowLeftIcon className="size-4 text-muted-foreground" />
+          <span className="text-muted-foreground">Voltar</span>
+        </Link>
+        <Layout.Card className="p-12 max-w-[400px] mx-auto">
+          <Outlet />
+        </Layout.Card>
+      </div>
     </Layout.Container>
   );
 }

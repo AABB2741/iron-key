@@ -17,6 +17,7 @@ export function ViewPasswordModal({ children }: ViewPasswordModalProps) {
         <Modal.Title>Nome da senha</Modal.Title>
 
         <TextField
+          readOnly
           label="Senha"
           placeholder="********"
           autoFocus
@@ -27,6 +28,7 @@ export function ViewPasswordModal({ children }: ViewPasswordModalProps) {
           ]}
         />
         <TextField
+          readOnly
           label="URL do site"
           placeholder="https://exemplo.com"
           options={[
@@ -36,6 +38,7 @@ export function ViewPasswordModal({ children }: ViewPasswordModalProps) {
           ]}
         />
         <TextField
+          readOnly
           label="Login"
           placeholder="E-mail ou nome de usuário"
           options={[
