@@ -37,12 +37,6 @@ function Index() {
         <PasswordGeneratorCard />
         <SavedPasswordsCard />
       </div>
-
-      <footer>
-        <p className="text-muted-foreground text-center">
-          Faça login para sincronizar suas senhas na nuvem
-        </p>
-      </footer>
     </Layout.Container>
   );
 }

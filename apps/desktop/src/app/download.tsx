@@ -7,7 +7,6 @@ import {
   ShieldIcon,
 } from "lucide-react";
 
-import { Footer } from "@/components/footer";
 import { Layout } from "@/components/layout";
 import { Button } from "@/components/ui/button";
 import { isDesktop } from "@/utils/is-desktop";
@@ -23,7 +22,7 @@ export const Route = createFileRoute("/download")({
 
 function RouteComponent() {
   return (
-    <div className="w-screen min-h-screen">
+    <>
       <header className="p-4 border-b border-border flex justify-between">
         <div>
           <p>IronKey</p>
@@ -175,8 +174,6 @@ function RouteComponent() {
           </Button>
         </section>
       </Layout.Container>
-
-      <Footer />
-    </div>
+    </>
   );
 }
