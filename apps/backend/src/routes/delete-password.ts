@@ -1,6 +1,7 @@
-import { z } from "zod";
 import { eq, and } from "drizzle-orm";
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
+
+import { deletePasswordParams, deletePasswordResponse } from "@ironkey/routes";
 
 import { db } from "../db/client.ts";
 import { HTTP_NO_CONTENT } from "../constants/http/codes.ts";
@@ -16,11 +17,9 @@ export const deletePasswordRoute: FastifyPluginAsyncZod = async (app) => {
 			schema: {
 				summary: "Delete a saved password",
 				tags: ["passwords"],
-				params: z.object({
-					id: z.uuid(),
-				}),
+				params: deletePasswordParams,
 				response: {
-					[HTTP_NO_CONTENT]: z.null(),
+					[HTTP_NO_CONTENT]: deletePasswordResponse,
 				},
 			},
 		},
