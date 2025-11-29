@@ -32,6 +32,9 @@ importers:
       '@ironkey/routes':
         specifier: workspace:*
         version: link:../../packages/routes
+      '@ironkey/schemas':
+        specifier: workspace:*
+        version: link:../../packages/schemas
       '@scalar/fastify-api-reference':
         specifier: ^1.38.1
         version: 1.38.1
@@ -176,6 +179,15 @@ importers:
   packages/constants: {}
 
   packages/routes:
+    dependencies:
+      '@ironkey/schemas':
+        specifier: workspace:*
+        version: link:../schemas
+      zod:
+        specifier: ^4.1.12
+        version: 4.1.12
+
+  packages/schemas:
     dependencies:
       zod:
         specifier: ^4.1.12

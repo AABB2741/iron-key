@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import { user } from "@ironkey/schemas";
+
 export const signUpBody = z.object({
 	name: z.string(),
 	email: z.string(),
@@ -7,5 +9,5 @@ export const signUpBody = z.object({
 });
 export type SignUpBody = z.infer<typeof signUpBody>;
 
-export const signUpResponse = z.null();
+export const signUpResponse = user;
 export type SignUpResponse = z.infer<typeof signUpResponse>;
