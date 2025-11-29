@@ -39,6 +39,12 @@ RUN apt install -y libwebkit2gtk-4.1-dev \
 COPY --from=installer /app .
 COPY --from=pruner /app/out/full .
 
+ARG VITE_API_URL
+ARG VITE_WEB_URL
+
+ENV VITE_API_URL=$VITE_API_URL
+ENV VITE_WEB_URL=$VITE_WEB_URL
+
 FROM builder AS linux-builder
 
 RUN pnpm --filter desktop build:linux
