@@ -36,9 +36,3 @@ variable "logger_level" {
   default     = "info"
   description = "The logging level for the application (e.g., info, warn, error)."
 }
-
-variable "better_auth_secret" {
-  type        = string
-  description = "The secret key for BetterAuth."
-  sensitive   = true
-}

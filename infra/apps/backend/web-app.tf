@@ -1,3 +1,15 @@
+resource "random_string" "better_auth_secret" {
+  length           = 32
+  special          = true
+  override_special = "!@#%¨&*()"
+}
+
+resource "random_string" "encryption_key" {
+  length           = 32
+  special          = true
+  override_special = "!@#%¨&*()"
+}
+
 resource "azurerm_linux_web_app" "backend_app" {
   name                = "${var.project_name}-backend"
   location            = data.azurerm_resource_group.rg.location
@@ -22,7 +34,8 @@ resource "azurerm_linux_web_app" "backend_app" {
     API_URL            = var.api_url
     LOGGER             = var.logger_level
     DATABASE_URL       = neon_project.postgres_project.connection_uri
-    BETTER_AUTH_SECRET = var.better_auth_secret
+    BETTER_AUTH_SECRET = random_string.better_auth_secret.result
+    ENCRYPTION_KEY     = random_string.encryption_key.result
   }
 
   logs {

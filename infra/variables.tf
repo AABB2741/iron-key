@@ -31,8 +31,3 @@ variable "logger_level" {
   type        = string
   description = "The logging level for the application."
 }
-
-variable "better_auth_secret" {
-  type        = string
-  description = "The secret key used for BetterAuth authentication."
-}
