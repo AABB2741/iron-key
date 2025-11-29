@@ -2,18 +2,27 @@ import { CopyIcon, EyeIcon, PenIcon, Trash2Icon } from "lucide-react";
 
 import { Layout } from "@/components/layout";
 import { Button } from "@/components/ui/button";
+
 import { DeletePasswordModal } from "./delete-password-modal";
 import { EditPasswordModal } from "./edit-password-modal";
 import { ViewPasswordModal } from "./view-password-modal";
 
-export function Password() {
+interface PasswordProps {
+  id: string;
+  name: string | null;
+  login: string | null;
+  url: string | null;
+  password: string;
+}
+
+export function Password({ name, login, url, password }: PasswordProps) {
   return (
     <Layout.Card className="flex gap-4 items-start space-y-0">
       <div className="flex-1 space-y-1">
-        <p>Teste</p>
-        <p className="text-sm text-muted-foreground">email@email.com</p>
-        <p className="text-xs text-muted-foreground">https://exemplo.com</p>
-        <p className="text-muted-foreground">••••••••••••••••••••••••</p>
+        <p>{name || "Sem nome"}</p>
+        {!!login && <p className="text-sm text-muted-foreground">{login}</p>}
+        {!!url && <p className="text-xs text-muted-foreground">{url}</p>}
+        <p className="text-muted-foreground">{"•".repeat(password.length)}</p>
       </div>
       <div className="flex gap-2">
         <Button size="icon">
