@@ -12,8 +12,10 @@
 		"ts:check": "tsc --noEmit",
 		"db:generate": "pnpm env:dev drizzle-kit generate",
 		"db:migrate": "pnpm env:dev drizzle-kit migrate",
+		"db:deploy": "pnpm env:prod drizzle-kit migrate",
 		"db:studio": "pnpm env:dev drizzle-kit studio",
-		"env:dev": "dotenv -e .env.development -e .env --"
+		"env:dev": "dotenv -e .env.development -e .env --",
+		"env:prod": "dotenv -e .env.production -e .env --"
 	},
 	"keywords": [],
 	"author": "",
