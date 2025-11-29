@@ -3,6 +3,7 @@ import { CopyIcon, EyeIcon, PenIcon, Trash2Icon } from "lucide-react";
 import { Layout } from "@/components/layout";
 import { Button } from "@/components/ui/button";
 
+import { copy } from "@/utils/copy";
 import { useState } from "react";
 import { DeletePasswordModal } from "./delete-password-modal";
 import { EditPasswordModal } from "./edit-password-modal";
@@ -26,19 +27,13 @@ export function Password({ id, name, login, url, password }: PasswordProps) {
         <p className="text-muted-foreground">{"•".repeat(password.length)}</p>
       </div>
       <div className="flex gap-2">
-        <Button size="icon">
+        <Button size="icon" onClick={copy(password)}>
           <CopyIcon />
         </Button>
 
         <ViewButton id={id} />
-
         <EditButton id={id} />
-
-        <DeletePasswordModal>
-          <Button size="icon">
-            <Trash2Icon />
-          </Button>
-        </DeletePasswordModal>
+        <DeleteButton id={id} />
       </div>
     </Layout.Card>
   );
@@ -65,5 +60,17 @@ function EditButton({ id }: { id: string }) {
         <PenIcon />
       </Button>
     </EditPasswordModal>
+  );
+}
+
+function DeleteButton({ id }: { id: string }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <DeletePasswordModal passwordId={id} open={isOpen} onOpenChange={setIsOpen}>
+      <Button size="icon">
+        <Trash2Icon />
+      </Button>
+    </DeletePasswordModal>
   );
 }
