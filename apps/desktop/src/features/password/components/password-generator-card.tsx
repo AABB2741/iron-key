@@ -7,14 +7,11 @@ import { Button } from "@/components/ui/button";
 import { generatePassword } from "@/utils/generate-password";
 
 import { copy } from "@/utils/copy";
-import { useCreatePassword } from "../api/create-password";
 import { CreatePasswordModal } from "./create-password-modal";
 import { usePasswordForm } from "./password-form";
 
 export function PasswordGeneratorCard() {
   const [password, setPassword] = useState("");
-
-  const { createPassword } = useCreatePassword();
 
   const form = usePasswordForm({
     defaultValues: {
