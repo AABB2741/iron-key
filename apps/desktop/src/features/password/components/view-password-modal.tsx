@@ -1,56 +1,98 @@
-import { CopyIcon } from "lucide-react";
-import type React from "react";
+import type { DialogProps } from "@radix-ui/react-dialog";
+import dayjs from "dayjs";
+import { CopyIcon, ExternalLinkIcon } from "lucide-react";
 
 import { TextField } from "@/components/form/text-field";
 import { Button } from "@/components/ui/button";
 import { Modal } from "@/components/ui/modal";
 import { Separator } from "@/components/ui/separator";
 
-interface ViewPasswordModalProps extends React.PropsWithChildren {}
+import { copy } from "@/utils/copy";
+import { usePasswordById } from "../api/get-password-by-id";
 
-export function ViewPasswordModal({ children }: ViewPasswordModalProps) {
+interface ViewPasswordModalProps extends DialogProps {
+  passwordId: string;
+}
+
+export function ViewPasswordModal({
+  passwordId,
+  children,
+  ...props
+}: ViewPasswordModalProps) {
+  const { password } = usePasswordById({
+    passwordId,
+    options: {
+      enabled: !!props.open,
+    },
+  });
+
   return (
-    <Modal.Root>
+    <Modal.Root {...props}>
       <Modal.Trigger asChild>{children}</Modal.Trigger>
 
       <Modal.Content>
-        <Modal.Title>Nome da senha</Modal.Title>
+        <Modal.Title>{password?.name ?? "Senha sem nome"}</Modal.Title>
 
-        <TextField
-          readOnly
-          label="Senha"
-          placeholder="********"
-          autoFocus
-          options={[
-            {
-              icon: CopyIcon,
-            },
-          ]}
-        />
-        <TextField
-          readOnly
-          label="URL do site"
-          placeholder="https://exemplo.com"
-          options={[
-            {
-              icon: CopyIcon,
-            },
-          ]}
-        />
-        <TextField
-          readOnly
-          label="Login"
-          placeholder="E-mail ou nome de usuário"
-          options={[
-            {
-              icon: CopyIcon,
-            },
-          ]}
-        />
+        {!!password?.password && (
+          <TextField
+            label="Senha"
+            placeholder="********"
+            readOnly
+            autoFocus
+            value={password.password}
+            options={[
+              {
+                icon: CopyIcon,
+                onClick: copy(password.password!),
+              },
+            ]}
+          />
+        )}
+
+        {!!password?.siteUrl && (
+          <TextField
+            label="Site"
+            placeholder="https://exemplo.com"
+            value={password.siteUrl}
+            readOnly
+            options={[
+              {
+                icon: ExternalLinkIcon,
+                onClick: () => {
+                  const a = document.createElement("a");
+                  a.target = "_blank";
+                  a.href = password.siteUrl!;
+                  a.click();
+                },
+              },
+              {
+                icon: CopyIcon,
+                onClick: copy(password.siteUrl!),
+              },
+            ]}
+          />
+        )}
+
+        {password?.login && (
+          <TextField
+            label="Login"
+            placeholder="E-mail ou nome de usuário"
+            readOnly
+            value={password.login}
+            options={[
+              {
+                icon: CopyIcon,
+                onClick: copy(password.login!),
+              },
+            ]}
+          />
+        )}
 
         <Separator />
 
-        <p className="text-xs text-muted-foreground">Criado em 12/12/2012</p>
+        <p className="text-xs text-muted-foreground">
+          Criado em {dayjs(password?.createdAt).format("DD/MM/YYYY")}
+        </p>
 
         <Modal.Close asChild>
           <Button className="w-full" variant="primary">

@@ -1,12 +1,12 @@
 import { CopyIcon, RefreshCcwIcon, SaveIcon } from "lucide-react";
 import { useState } from "react";
-import { toast } from "sonner";
 
 import { TextField } from "@/components/form/text-field";
 import { Layout } from "@/components/layout";
 import { Button } from "@/components/ui/button";
 import { generatePassword } from "@/utils/generate-password";
 
+import { copy } from "@/utils/copy";
 import { useCreatePassword } from "../api/create-password";
 import { CreatePasswordModal } from "./create-password-modal";
 import { usePasswordForm } from "./password-form";
@@ -69,16 +69,7 @@ export function PasswordGeneratorCard() {
                 icon: CopyIcon,
                 disabled: !password,
                 type: "button",
-                onClick: () => {
-                  try {
-                    navigator.clipboard.writeText(password);
-                    toast.success("Copiado para a área de transferência!");
-                  } catch (error) {
-                    toast.error("Não foi possível copiar a senha.", {
-                      description: String(error),
-                    });
-                  }
-                },
+                onClick: copy(password),
               },
             ]}
           />
