@@ -1,6 +1,7 @@
 import { type LucideIcon } from "lucide-react";
 import type React from "react";
 
+import { getErrorMessage } from "@/utils/get-error-message";
 import { twMerge } from "tailwind-merge";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -11,6 +12,7 @@ interface TextFieldOption extends React.ComponentProps<"button"> {
 
 interface TextFieldProps extends React.ComponentProps<"input"> {
   icon?: LucideIcon;
+  error?: unknown;
   label?: string;
   options?: TextFieldOption[];
   containerLabelClassName?: string;
@@ -18,6 +20,7 @@ interface TextFieldProps extends React.ComponentProps<"input"> {
 
 export function TextField({
   icon: Icon,
+  error,
   label,
   options,
   containerLabelClassName,
@@ -25,7 +28,12 @@ export function TextField({
 }: TextFieldProps) {
   return (
     <div className="space-y-2">
-      {!!label && <p>{label}</p>}
+      {!!label && (
+        <p>
+          {label}{" "}
+          {props.required && <span className="text-destructive">*</span>}
+        </p>
+      )}
       <div className="flex gap-2">
         {Icon ? (
           <label
@@ -47,12 +55,15 @@ export function TextField({
         ) : (
           <Input {...props} className={twMerge("flex-1", props.className)} />
         )}
-        {options?.map(({ icon: Icon, ...props }, index) => (
-          <Button {...props} key={index}>
+        {options?.map(({ icon: Icon, type = "button", ...props }, index) => (
+          <Button {...props} key={index} type={type}>
             <Icon className="text-muted-foreground size-4" />
           </Button>
         ))}
       </div>
+      {!!error && (
+        <p className="text-xs text-destructive">{getErrorMessage(error)}</p>
+      )}
     </div>
   );
 }

@@ -15,7 +15,7 @@ html[data-platform="desktop"] {
   --color-background: oklch(20.8% 0.042 265.755);
 
   --color-primary: oklch(62.3% 0.214 259.815);
-  --color-primary-foreground: oklch(88.2% 0.059 254.128);
+  --color-primary-foreground: oklch(98.5% 0.002 247.839);
   --color-destructive: oklch(58.6% 0.253 17.585);
   --color-destructive-foreground: oklch(98.5% 0.002 247.839);
   

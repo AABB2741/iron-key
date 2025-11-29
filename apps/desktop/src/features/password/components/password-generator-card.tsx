@@ -4,13 +4,17 @@ import { useState } from "react";
 import { TextField } from "@/components/form/text-field";
 import { Layout } from "@/components/layout";
 import { Button } from "@/components/ui/button";
-
 import { generatePassword } from "@/utils/generate-password";
-import { toast } from "sonner";
+
+import { copy } from "@/utils/copy";
+import { useCreatePassword } from "../api/create-password";
+import { CreatePasswordModal } from "./create-password-modal";
 import { usePasswordForm } from "./password-form";
 
 export function PasswordGeneratorCard() {
   const [password, setPassword] = useState("");
+
+  const { createPassword } = useCreatePassword();
 
   const form = usePasswordForm({
     defaultValues: {
@@ -65,16 +69,7 @@ export function PasswordGeneratorCard() {
                 icon: CopyIcon,
                 disabled: !password,
                 type: "button",
-                onClick: () => {
-                  try {
-                    navigator.clipboard.writeText(password);
-                    toast.success("Copiado para a área de transferência!");
-                  } catch (error) {
-                    toast.error("Não foi possível copiar a senha.", {
-                      description: String(error),
-                    });
-                  }
-                },
+                onClick: copy(password),
               },
             ]}
           />
@@ -150,13 +145,31 @@ export function PasswordGeneratorCard() {
               <RefreshCcwIcon />
               <span>Gerar senha</span>
             </Button>
-            <Button type="button">
-              <SaveIcon />
-              <span>Salvar senha</span>
-            </Button>
+            <SavePasswordButton password={password} />
           </div>
         </form>
       </form.AppForm>
     </Layout.Card>
+  );
+}
+
+interface SavePasswordButtonProps {
+  password: string;
+}
+
+function SavePasswordButton({ password }: SavePasswordButtonProps) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <CreatePasswordModal
+      password={password}
+      open={isOpen}
+      onOpenChange={setIsOpen}
+    >
+      <Button type="button">
+        <SaveIcon />
+        <span>Salvar senha</span>
+      </Button>
+    </CreatePasswordModal>
   );
 }

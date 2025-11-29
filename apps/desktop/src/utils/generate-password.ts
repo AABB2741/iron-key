@@ -5,11 +5,11 @@ const numbers = "0123456789";
 const symbols = "!@#$%^&*()_+~`|}{[]:;?><,./-=";
 
 interface GeneratedPasswordOptions {
-  length: number;
-  uppercase: boolean;
-  lowercase: boolean;
-  numbers: boolean;
-  symbols: boolean;
+  length?: number;
+  uppercase?: boolean;
+  lowercase?: boolean;
+  numbers?: boolean;
+  symbols?: boolean;
 }
 
 type GeneratorFn = () => string;
@@ -22,12 +22,12 @@ const generator = {
 } satisfies Record<string, GeneratorFn>;
 
 export function generatePassword({
-  length,
-  lowercase,
-  numbers,
-  symbols,
-  uppercase,
-}: GeneratedPasswordOptions) {
+  length = 16,
+  lowercase = true,
+  numbers = true,
+  symbols = true,
+  uppercase = true,
+}: GeneratedPasswordOptions = {}) {
   let res = "";
 
   const generators: GeneratorFn[] = [];

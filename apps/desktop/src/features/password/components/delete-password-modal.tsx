@@ -1,12 +1,23 @@
+import type { DialogProps } from "@radix-ui/react-dialog";
+
 import { Button } from "@/components/ui/button";
 import { Modal } from "@/components/ui/modal";
-import type React from "react";
 
-interface DeletePasswordModalProps extends React.PropsWithChildren {}
+import { useDeletePassword } from "../api/delete-password";
 
-export function DeletePasswordModal({ children }: DeletePasswordModalProps) {
+interface DeletePasswordModalProps extends DialogProps {
+  passwordId: string;
+}
+
+export function DeletePasswordModal({
+  passwordId,
+  children,
+  ...props
+}: DeletePasswordModalProps) {
+  const { deletePassword } = useDeletePassword();
+
   return (
-    <Modal.Root>
+    <Modal.Root {...props}>
       <Modal.Trigger asChild>{children}</Modal.Trigger>
 
       <Modal.Content>
@@ -19,7 +30,15 @@ export function DeletePasswordModal({ children }: DeletePasswordModalProps) {
         </Modal.Header>
         <Modal.Footer>
           <Button>Cancelar</Button>
-          <Button variant="destructive">Excluir</Button>
+          <Button
+            variant="destructive"
+            onClick={async () => {
+              await deletePassword({ passwordId });
+              props.onOpenChange?.(false);
+            }}
+          >
+            Excluir
+          </Button>
         </Modal.Footer>
       </Modal.Content>
     </Modal.Root>
