@@ -18,9 +18,11 @@ export async function fetch<Response, Request = unknown>(
   params: FetchParams<Request>,
 ) {
   if (isDesktop()) {
-    const headers: Record<string, string> = {
-      "content-type": "application/json",
-    };
+    const headers: Record<string, string> = {};
+
+    if (params.body) {
+      headers["content-type"] = "application/json";
+    }
 
     if (token) {
       headers["authorization"] = `Bearer ${token}`;
@@ -42,7 +44,12 @@ export async function fetch<Response, Request = unknown>(
       throw new Error("Ocorreu um erro.");
     }
 
-    return response.json() as Promise<Response>;
+    console.log("Transforming to json:", response);
+    try {
+      return (await response.json()) as Response;
+    } catch (error) {
+      return null as Response;
+    }
   }
 
   const response = await api.request<Response>({
