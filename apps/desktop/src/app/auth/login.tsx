@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { LockIcon, MailIcon } from "lucide-react";
 
 import { Form } from "@/components/form";
@@ -14,6 +14,7 @@ export const Route = createFileRoute("/auth/login")({
 
 function RouteComponent() {
   const { login, error } = useLogin();
+  const router = useRouter();
 
   const form = useForm({
     defaultValues: {
@@ -28,6 +29,7 @@ function RouteComponent() {
         email: form.value.email,
         password: form.value.password,
       });
+      router.navigate({ to: "/" });
     },
   });
 

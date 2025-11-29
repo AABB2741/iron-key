@@ -1,10 +1,19 @@
 import { z } from "zod";
 
 export const createPasswordBody = z.object({
-	name: z.string().optional(),
-	login: z.string().optional(),
-	siteUrl: z.string().optional(),
-	password: z.string(),
+  name: z
+    .string()
+    .transform((v) => v || undefined)
+    .optional(),
+  login: z
+    .string()
+    .transform((v) => v || undefined)
+    .optional(),
+  siteUrl: z
+    .string()
+    .transform((v) => v || undefined)
+    .optional(),
+  password: z.string(),
 });
 export type CreatePasswordBody = z.infer<typeof createPasswordBody>;
 

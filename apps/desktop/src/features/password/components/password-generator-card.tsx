@@ -1,16 +1,20 @@
 import { CopyIcon, RefreshCcwIcon, SaveIcon } from "lucide-react";
 import { useState } from "react";
+import { toast } from "sonner";
 
 import { TextField } from "@/components/form/text-field";
 import { Layout } from "@/components/layout";
 import { Button } from "@/components/ui/button";
-
 import { generatePassword } from "@/utils/generate-password";
-import { toast } from "sonner";
+
+import { useCreatePassword } from "../api/create-password";
+import { CreatePasswordModal } from "./create-password-modal";
 import { usePasswordForm } from "./password-form";
 
 export function PasswordGeneratorCard() {
   const [password, setPassword] = useState("");
+
+  const { createPassword } = useCreatePassword();
 
   const form = usePasswordForm({
     defaultValues: {
@@ -150,13 +154,31 @@ export function PasswordGeneratorCard() {
               <RefreshCcwIcon />
               <span>Gerar senha</span>
             </Button>
-            <Button type="button">
-              <SaveIcon />
-              <span>Salvar senha</span>
-            </Button>
+            <SavePasswordButton password={password} />
           </div>
         </form>
       </form.AppForm>
     </Layout.Card>
+  );
+}
+
+interface SavePasswordButtonProps {
+  password: string;
+}
+
+function SavePasswordButton({ password }: SavePasswordButtonProps) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <CreatePasswordModal
+      password={password}
+      open={isOpen}
+      onOpenChange={setIsOpen}
+    >
+      <Button type="button">
+        <SaveIcon />
+        <span>Salvar senha</span>
+      </Button>
+    </CreatePasswordModal>
   );
 }

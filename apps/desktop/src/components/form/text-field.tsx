@@ -28,7 +28,12 @@ export function TextField({
 }: TextFieldProps) {
   return (
     <div className="space-y-2">
-      {!!label && <p>{label}</p>}
+      {!!label && (
+        <p>
+          {label}{" "}
+          {props.required && <span className="text-destructive">*</span>}
+        </p>
+      )}
       <div className="flex gap-2">
         {Icon ? (
           <label
