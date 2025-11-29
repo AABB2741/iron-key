@@ -2,7 +2,7 @@ import type { SignInBody, SignInResponse } from "@ironkey/routes/auth";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 
-import { fetch } from "@/utils/fetch";
+import { fetch, setToken } from "@/utils/fetch";
 import { useCookies } from "react-cookie";
 
 export async function login({ email, password }: SignInBody) {
@@ -27,6 +27,7 @@ export function useLogin() {
       setCookie("token", token, {
         path: "/",
       });
+      setToken(token);
     },
   });
 
