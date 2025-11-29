@@ -1,5 +1,5 @@
 ### Sign Up
-POST http://localhost:3333/sign-up
+POST http://localhost:3333/auth/sign-up
 Content-Type: application/json
 
 {
@@ -9,7 +9,7 @@ Content-Type: application/json
 }
 
 ### Sign In
-POST http://localhost:3333/sign-in
+POST http://localhost:3333/auth/sign-in
 Content-Type: application/json
 
 {
@@ -17,9 +17,9 @@ Content-Type: application/json
   "password": "password123"
 }
 
-### Save Password
+### Create Password
 POST http://localhost:3333/passwords
-Authorization: Bearer yQMQLMlFDTj2DeeV3otakiYPMCLOhXCJ
+Authorization: Bearer K5Xd12JlIrbZEPJUKMv30hFDlBG6P8co
 Content-Type: application/json
 
 {
@@ -31,11 +31,15 @@ Content-Type: application/json
 
 ### Get Saved Passwords
 GET http://localhost:3333/passwords
-Authorization: Bearer yQMQLMlFDTj2DeeV3otakiYPMCLOhXCJ
+Authorization: Bearer K5Xd12JlIrbZEPJUKMv30hFDlBG6P8co
+
+### Get Password by ID
+GET http://localhost:3333/passwords/b6b7e259-550a-49c1-9e36-46d94c9ccb58
+Authorization: Bearer K5Xd12JlIrbZEPJUKMv30hFDlBG6P8co
 
 ### Update Password
-PATCH http://localhost:3333/passwords/1c31516a-3617-492d-a2e5-d5c6f6386bd9
-Authorization: Bearer yQMQLMlFDTj2DeeV3otakiYPMCLOhXCJ
+PATCH http://localhost:3333/passwords/b6b7e259-550a-49c1-9e36-46d94c9ccb58
+Authorization: Bearer K5Xd12JlIrbZEPJUKMv30hFDlBG6P8co
 Content-Type: application/json
 
 {
@@ -46,5 +50,5 @@ Content-Type: application/json
 }
 
 ### Delete Password
-DELETE http://localhost:3333/passwords/1c31516a-3617-492d-a2e5-d5c6f6386bd9
-Authorization: Bearer yQMQLMlFDTj2DeeV3otakiYPMCLOhXCJ
+DELETE http://localhost:3333/passwords/b6b7e259-550a-49c1-9e36-46d94c9ccb58
+Authorization: Bearer K5Xd12JlIrbZEPJUKMv30hFDlBG6P8co

@@ -11,12 +11,8 @@ import {
 import fastifyCors from "@fastify/cors";
 import { env } from "./env.ts";
 import { errorHandler } from "./error-handler.ts";
-import { deletePasswordRoute } from "./routes/delete-password.ts";
-import { getSavedPasswordsRoute } from "./routes/get-saved-passwords.ts";
-import { savePasswordRoute } from "./routes/save-password.ts";
-import { signInRoute } from "./routes/sign-in.ts";
-import { signUpRoute } from "./routes/sign-up.ts";
-import { updatePasswordRoute } from "./routes/update-password.ts";
+import { authRoutes } from "./routes/auth/routes.ts";
+import { passwordsRoutes } from "./routes/passwords/routes.ts";
 
 export const app = fastify({
   logger: {
@@ -62,11 +58,10 @@ if (env.NODE_ENV === "development") {
 app.setErrorHandler(errorHandler);
 
 app.get("/", () => "Ok");
-app.get("/test", () => "Hello world!");
 
-app.register(signUpRoute);
-app.register(signInRoute);
-app.register(getSavedPasswordsRoute);
-app.register(savePasswordRoute);
-app.register(updatePasswordRoute);
-app.register(deletePasswordRoute);
+app.register(authRoutes, {
+  prefix: "/auth",
+});
+app.register(passwordsRoutes, {
+  prefix: "/passwords",
+});

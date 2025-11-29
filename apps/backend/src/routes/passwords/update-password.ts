@@ -1,33 +1,31 @@
-import { z } from "zod";
 import { eq, and } from "drizzle-orm";
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
 
-import { db } from "../db/client.ts";
-import { encrypt } from "../lib/crypto.ts";
-import { HTTP_OK } from "../constants/http/codes.ts";
-import { savedPasswords } from "../db/schema/saved-passwords.ts";
-import { requireAuthentication } from "./hooks/require-authentication.ts";
-import { NotFoundError } from "../errors/http/not-found-error.ts";
+import {
+	updatePasswordBody,
+	updatePasswordParams,
+	updatePasswordResponse,
+} from "@ironkey/routes/passwords";
+import { HTTP_OK } from "@ironkey/constants/http";
+
+import { db } from "../../db/client.ts";
+import { encrypt } from "../../lib/crypto.ts";
+import { savedPasswords } from "../../db/schema/saved-passwords.ts";
+import { requireAuthentication } from "../_hooks/require-authentication.ts";
+import { NotFoundError } from "../../errors/http/not-found-error.ts";
 
 export const updatePasswordRoute: FastifyPluginAsyncZod = async (app) => {
 	app.patch(
-		"/passwords/:id",
+		"/:id",
 		{
 			preHandler: [requireAuthentication],
 			schema: {
 				summary: "Update a saved password",
 				tags: ["passwords"],
-				params: z.object({
-					id: z.uuid(),
-				}),
-				body: z.object({
-					name: z.string().optional(),
-					login: z.string().optional(),
-					siteUrl: z.string().optional(),
-					password: z.string().optional(),
-				}),
+				params: updatePasswordParams,
+				body: updatePasswordBody,
 				response: {
-					[HTTP_OK]: z.null(),
+					[HTTP_OK]: updatePasswordResponse,
 				},
 			},
 		},
@@ -64,7 +62,7 @@ export const updatePasswordRoute: FastifyPluginAsyncZod = async (app) => {
 				updateData.encryptedPassword = encrypt(body.password);
 			}
 
-			const result = await db
+			await db
 				.update(savedPasswords)
 				.set(updateData)
 				.where(
@@ -72,8 +70,7 @@ export const updatePasswordRoute: FastifyPluginAsyncZod = async (app) => {
 						eq(savedPasswords.id, id),
 						eq(savedPasswords.userId, request.user.id)
 					)
-				)
-				.returning();
+				);
 
 			return reply.status(HTTP_OK).send();
 		}
