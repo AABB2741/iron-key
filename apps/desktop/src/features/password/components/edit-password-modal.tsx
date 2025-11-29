@@ -1,14 +1,60 @@
+import {
+  updatePasswordBody,
+  type UpdatePasswordBody,
+} from "@ironkey/routes/passwords";
+import type { DialogProps } from "@radix-ui/react-dialog";
+import { useForm } from "@tanstack/react-form";
+import { Wand2Icon } from "lucide-react";
+import { toast } from "sonner";
+
 import { TextField } from "@/components/form/text-field";
 import { Button } from "@/components/ui/button";
 import { Modal } from "@/components/ui/modal";
 import { Separator } from "@/components/ui/separator";
-import { CopyIcon, Wand2Icon } from "lucide-react";
 
-interface EditPasswordModalProps extends React.PropsWithChildren {}
+import { generatePassword } from "@/utils/generate-password";
+import { useEditPassword } from "../api/edit-password";
+import { usePasswordById } from "../api/get-password-by-id";
 
-export function EditPasswordModal({ children }: EditPasswordModalProps) {
+interface EditPasswordModalProps extends DialogProps {
+  passwordId: string;
+}
+
+export function EditPasswordModal({
+  passwordId,
+  children,
+  ...props
+}: EditPasswordModalProps) {
+  const { password } = usePasswordById({
+    passwordId,
+    options: {
+      enabled: !!props.open,
+    },
+  });
+  const { editPassword } = useEditPassword();
+
+  const form = useForm({
+    defaultValues: {
+      name: password?.name ?? "",
+      login: password?.login ?? "",
+      siteUrl: password?.siteUrl ?? "",
+      password: password?.password ?? "",
+    } satisfies UpdatePasswordBody as UpdatePasswordBody,
+    validators: {
+      onSubmit: updatePasswordBody,
+    },
+    onSubmit: async (form) => {
+      await editPassword({
+        passwordId,
+        ...form.value,
+      });
+      props.onOpenChange?.(false);
+      toast.success("Senha atualizada com sucesso");
+    },
+  });
+
   return (
-    <Modal.Root>
+    <Modal.Root {...props}>
       <Modal.Trigger asChild>{children}</Modal.Trigger>
 
       <Modal.Content>
@@ -19,53 +65,78 @@ export function EditPasswordModal({ children }: EditPasswordModalProps) {
           </Modal.Description>
         </Modal.Header>
 
-        <TextField
-          label="Nome"
-          placeholder="Ex: Email pessoal, Netflix, etc."
-          options={[
-            {
-              icon: CopyIcon,
-            },
-          ]}
-        />
-        <TextField
-          label="URL do site"
-          placeholder="https://exemplo.com"
-          options={[
-            {
-              icon: CopyIcon,
-            },
-          ]}
-        />
-        <TextField
-          label="Login"
-          placeholder="E-mail ou nome de usuário"
-          options={[
-            {
-              icon: CopyIcon,
-            },
-          ]}
-        />
-        <TextField
-          label="Senha"
-          placeholder="********"
-          autoFocus
-          options={[
-            {
-              icon: Wand2Icon,
-            },
-            {
-              icon: CopyIcon,
-            },
-          ]}
-        />
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            form.handleSubmit();
+          }}
+        >
+          <form.Field
+            name="name"
+            children={(field) => (
+              <TextField
+                label="Nome"
+                placeholder="Ex: Email pessoal, Netflix, etc."
+                value={field.state.value}
+                onChange={(e) => field.handleChange(e.target.value)}
+                autoFocus
+              />
+            )}
+          />
+          <form.Field
+            name="siteUrl"
+            children={(field) => (
+              <TextField
+                label="URL do site"
+                placeholder="https://exemplo.com"
+                value={field.state.value}
+                onChange={(e) => field.handleChange(e.target.value)}
+              />
+            )}
+          />
+          <form.Field
+            name="login"
+            children={(field) => (
+              <TextField
+                label="Login"
+                placeholder="E-mail ou nome de usuário"
+                value={field.state.value}
+                onChange={(e) => field.handleChange(e.target.value)}
+              />
+            )}
+          />
+          <form.Field
+            name="password"
+            children={(field) => (
+              <TextField
+                label="Senha"
+                placeholder="********"
+                value={field.state.value}
+                onChange={(e) => field.handleChange(e.target.value)}
+                options={[
+                  {
+                    icon: Wand2Icon,
+                    onClick: () => {
+                      field.handleChange(generatePassword());
+                    },
+                  },
+                ]}
+              />
+            )}
+          />
 
-        <Separator />
+          <Separator />
 
-        <Modal.Footer>
-          <Button>Cancelar</Button>
-          <Button variant="primary">Atualizar</Button>
-        </Modal.Footer>
+          <Modal.Footer>
+            <Modal.Close asChild>
+              <Button>Cancelar</Button>
+            </Modal.Close>
+            <Button variant="primary" type="submit">
+              Atualizar
+            </Button>
+          </Modal.Footer>
+        </form>
       </Modal.Content>
     </Modal.Root>
   );

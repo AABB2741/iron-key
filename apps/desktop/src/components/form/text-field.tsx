@@ -55,8 +55,8 @@ export function TextField({
         ) : (
           <Input {...props} className={twMerge("flex-1", props.className)} />
         )}
-        {options?.map(({ icon: Icon, ...props }, index) => (
-          <Button {...props} key={index}>
+        {options?.map(({ icon: Icon, type = "button", ...props }, index) => (
+          <Button {...props} key={index} type={type}>
             <Icon className="text-muted-foreground size-4" />
           </Button>
         ))}

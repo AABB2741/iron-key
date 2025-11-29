@@ -32,11 +32,8 @@ export function Password({ id, name, login, url, password }: PasswordProps) {
 
         <ViewButton id={id} />
 
-        <EditPasswordModal>
-          <Button size="icon">
-            <PenIcon />
-          </Button>
-        </EditPasswordModal>
+        <EditButton id={id} />
+
         <DeletePasswordModal>
           <Button size="icon">
             <Trash2Icon />
@@ -56,5 +53,17 @@ function ViewButton({ id }: { id: string }) {
         <EyeIcon />
       </Button>
     </ViewPasswordModal>
+  );
+}
+
+function EditButton({ id }: { id: string }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <EditPasswordModal passwordId={id} open={isOpen} onOpenChange={setIsOpen}>
+      <Button size="icon">
+        <PenIcon />
+      </Button>
+    </EditPasswordModal>
   );
 }

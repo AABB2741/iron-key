@@ -71,6 +71,7 @@ function RouteComponent() {
             value={field.state.value}
             onChange={(e) => field.handleChange(e.target.value)}
             error={field.state.meta.errorMap.onSubmit}
+            autoFocus
           />
         )}
       />

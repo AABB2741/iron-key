@@ -59,6 +59,7 @@ function RouteComponent() {
             containerLabelClassName="w-full"
             value={field.state.value}
             onChange={(e) => field.handleChange(e.target.value)}
+            autoFocus
           />
         )}
       />
