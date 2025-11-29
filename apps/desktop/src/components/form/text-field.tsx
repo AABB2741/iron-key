@@ -1,6 +1,7 @@
 import { type LucideIcon } from "lucide-react";
 import type React from "react";
 
+import { getErrorMessage } from "@/utils/get-error-message";
 import { twMerge } from "tailwind-merge";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -11,6 +12,7 @@ interface TextFieldOption extends React.ComponentProps<"button"> {
 
 interface TextFieldProps extends React.ComponentProps<"input"> {
   icon?: LucideIcon;
+  error?: unknown;
   label?: string;
   options?: TextFieldOption[];
   containerLabelClassName?: string;
@@ -18,6 +20,7 @@ interface TextFieldProps extends React.ComponentProps<"input"> {
 
 export function TextField({
   icon: Icon,
+  error,
   label,
   options,
   containerLabelClassName,
@@ -53,6 +56,9 @@ export function TextField({
           </Button>
         ))}
       </div>
+      {!!error && (
+        <p className="text-xs text-destructive">{getErrorMessage(error)}</p>
+      )}
     </div>
   );
 }
