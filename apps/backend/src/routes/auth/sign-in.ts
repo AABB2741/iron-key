@@ -35,7 +35,11 @@ export const signInRoute: FastifyPluginAsyncZod = async (app) => {
 			});
 
 			return reply.send({
-				user,
+				user: {
+					id: user.id,
+					email: user.email,
+					name: user.name,
+				},
 				token,
 			});
 		}

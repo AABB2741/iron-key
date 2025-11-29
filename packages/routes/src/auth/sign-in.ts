@@ -9,7 +9,7 @@ export const signInBody = z.object({
 export type SignInBody = z.infer<typeof signInBody>;
 
 export const signInResponse = z.object({
-	user,
+	user: user.pick({ id: true, email: true, name: true }),
 	token: z.string(),
 });
 export type SignInResponse = z.infer<typeof signInResponse>;
