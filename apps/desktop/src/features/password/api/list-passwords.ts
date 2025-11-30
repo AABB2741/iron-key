@@ -1,8 +1,8 @@
 import type { ListPasswordsResponse } from "@ironkey/routes/passwords";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useCallback } from "react";
 
 import { api } from "@/lib/axios";
-import { useCallback } from "react";
 
 export async function listPasswords() {
   const result = await api.get<ListPasswordsResponse>("/passwords");

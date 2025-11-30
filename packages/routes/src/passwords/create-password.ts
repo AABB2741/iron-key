@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import { getPasswordByIdResponse } from "./get-password-by-id.ts";
+
 export const createPasswordBody = z.object({
   name: z
     .string()
@@ -17,5 +19,5 @@ export const createPasswordBody = z.object({
 });
 export type CreatePasswordBody = z.infer<typeof createPasswordBody>;
 
-export const createPasswordResponse = z.null();
+export const createPasswordResponse = getPasswordByIdResponse;
 export type CreatePasswordResponse = z.infer<typeof createPasswordResponse>;
