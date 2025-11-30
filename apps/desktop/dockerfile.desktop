@@ -39,13 +39,12 @@ RUN apt install -y libwebkit2gtk-4.1-dev \
 COPY --from=installer /app .
 COPY --from=pruner /app/out/full .
 
+FROM builder AS linux-builder
+
 ARG VITE_API_URL
 ARG VITE_WEB_URL
-
 ENV VITE_API_URL=$VITE_API_URL
 ENV VITE_WEB_URL=$VITE_WEB_URL
-
-FROM builder AS linux-builder
 
 RUN pnpm --filter desktop build:linux
 
@@ -53,6 +52,11 @@ FROM builder AS macos-builder
 
 # Configure for macOS build
 # https://github.com/tauri-apps/tauri-docs/issues/3097#issuecomment-2569181250
+ARG VITE_API_URL
+ARG VITE_WEB_URL
+ENV VITE_API_URL=$VITE_API_URL
+ENV VITE_WEB_URL=$VITE_WEB_URL
+
 RUN rustup target add aarch64-apple-darwin x86_64-apple-darwin
 RUN pnpm --filter desktop build:macos
 
@@ -62,6 +66,11 @@ FROM builder AS windows-builder
 # https://v2.tauri.app/distribute/windows-installer/
 RUN apt install -y nsis lld llvm clang
 RUN cargo install --locked cargo-xwin
+
+ARG VITE_API_URL
+ARG VITE_WEB_URL
+ENV VITE_API_URL=$VITE_API_URL
+ENV VITE_WEB_URL=$VITE_WEB_URL
 
 # Build for Windows (x64)
 RUN rustup target add x86_64-pc-windows-msvc

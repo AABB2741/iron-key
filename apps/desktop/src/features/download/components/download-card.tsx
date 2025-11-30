@@ -39,7 +39,11 @@ export function DownloadCard({
         </Button>
       )}
       {options.length === 1 && (
-        <Button variant="primary" className="w-full">
+        <Button
+          variant="primary"
+          className="w-full"
+          onClick={() => window.open(options[0].url, "_blank")}
+        >
           <DownloadIcon />
           <span>Baixar ({options[0].label})</span>
         </Button>
