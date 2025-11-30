@@ -12,6 +12,8 @@ const storeItem = z.object({
   siteUrl: z.string().nullable(),
   login: z.string().nullable(),
   password: z.string(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
 });
 
 const storeSchema = z.object({
@@ -30,6 +32,11 @@ const store = await load(STORE_FILENAME, {
 });
 
 export const passwordsStore = {
+  async listAll() {
+    ensureDesktop();
+    const current = await this.getStore();
+    return current.passwords;
+  },
   async add(item: StoreItem) {
     ensureDesktop();
     const newItem = storeItem.parse(item);
@@ -44,6 +51,12 @@ export const passwordsStore = {
       draft.passwords.push(newItem);
     });
     await store.set(PASSWORDS_STORE_KEY, updated);
+  },
+  async getById(id: string) {
+    ensureDesktop();
+    const current = await this.getStore();
+
+    return current.passwords.find((p) => p.id === id) || null;
   },
   async update(id: string, data: Partial<StoreItem>) {
     ensureDesktop();

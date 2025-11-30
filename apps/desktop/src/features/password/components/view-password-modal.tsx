@@ -1,6 +1,10 @@
 import type { DialogProps } from "@radix-ui/react-dialog";
 import dayjs from "dayjs";
-import { CopyIcon, ExternalLinkIcon } from "lucide-react";
+import {
+  CopyIcon,
+  ExternalLinkIcon,
+  LaptopMinimalCheckIcon,
+} from "lucide-react";
 
 import { TextField } from "@/components/form/text-field";
 import { Button } from "@/components/ui/button";
@@ -19,7 +23,7 @@ export function ViewPasswordModal({
   children,
   ...props
 }: ViewPasswordModalProps) {
-  const { password } = usePasswordById({
+  const { password, isSavedLocally } = usePasswordById({
     passwordId,
     options: {
       enabled: !!props.open,
@@ -31,7 +35,15 @@ export function ViewPasswordModal({
       <Modal.Trigger asChild>{children}</Modal.Trigger>
 
       <Modal.Content>
-        <Modal.Title>{password?.name ?? "Senha sem nome"}</Modal.Title>
+        <Modal.Header>
+          <Modal.Title>{password?.name ?? "Senha sem nome"}</Modal.Title>
+          {isSavedLocally && (
+            <p className="text-sm">
+              <LaptopMinimalCheckIcon className="text-success inline size-4" />{" "}
+              Salvo localmente
+            </p>
+          )}
+        </Modal.Header>
 
         {!!password?.password && (
           <TextField
