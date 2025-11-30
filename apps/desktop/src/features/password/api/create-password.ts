@@ -16,7 +16,7 @@ export async function createPassword(body: CreatePasswordBody) {
     },
   );
 
-  return response;
+  return response.data;
 }
 
 export function useCreatePassword() {

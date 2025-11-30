@@ -11,7 +11,7 @@ export async function getPasswordById({ id }: GetPasswordByIdParams) {
     method: "GET",
   });
 
-  return response;
+  return response.data;
 }
 
 interface UsePasswordByIdProps {

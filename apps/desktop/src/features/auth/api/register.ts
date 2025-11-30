@@ -13,7 +13,7 @@ export async function register({ name, email, password }: SignUpBody) {
     },
   });
 
-  return response;
+  return response.data;
 }
 
 export function useRegister() {

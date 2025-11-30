@@ -11,12 +11,17 @@ interface FetchParams<Body> {
   body?: Body;
 }
 
+interface FetchResponse<Data> {
+  data: Data;
+  status: number;
+}
+
 let token: string | null = null;
 
 export async function fetch<Response, Request = unknown>(
   path: string,
   params: FetchParams<Request>,
-) {
+): Promise<FetchResponse<Response>> {
   if (isDesktop()) {
     const headers: Record<string, string> = {};
 
@@ -46,9 +51,17 @@ export async function fetch<Response, Request = unknown>(
 
     console.log("Transforming to json:", response);
     try {
-      return (await response.json()) as Response;
+      const data = (await response.json()) as Response;
+
+      return {
+        data,
+        status: response.status,
+      };
     } catch (error) {
-      return null as Response;
+      return {
+        data: null as Response,
+        status: response.status,
+      } satisfies FetchResponse<Response>;
     }
   }
 
@@ -58,7 +71,10 @@ export async function fetch<Response, Request = unknown>(
     data: params.body,
   });
 
-  return response.data;
+  return {
+    data: response.data,
+    status: response.status,
+  };
 }
 
 export function setToken(newToken: string) {
