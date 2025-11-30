@@ -17,6 +17,10 @@ Content-Type: application/json
   "password": "password123"
 }
 
+### Continue Session
+GET http://localhost:3333/auth/continue-session
+Authorization: Bearer OfKznUfMRxDJqflhRsfiqvHwfvsYqv7X
+
 ### Create Password
 POST http://localhost:3333/passwords
 Authorization: Bearer K5Xd12JlIrbZEPJUKMv30hFDlBG6P8co
