@@ -1,8 +1,15 @@
-import { CopyIcon, EyeIcon, PenIcon, Trash2Icon } from "lucide-react";
+import {
+  CopyIcon,
+  EyeIcon,
+  LaptopMinimalCheckIcon,
+  PenIcon,
+  Trash2Icon,
+} from "lucide-react";
 
 import { Layout } from "@/components/layout";
 import { Button } from "@/components/ui/button";
 
+import { DesktopOnly } from "@/components/platform-only";
 import { copy } from "@/utils/copy";
 import { useState } from "react";
 import { DeletePasswordModal } from "./delete-password-modal";
@@ -15,9 +22,17 @@ interface PasswordProps {
   login: string | null;
   url: string | null;
   password: string;
+  isSavedLocally?: boolean;
 }
 
-export function Password({ id, name, login, url, password }: PasswordProps) {
+export function Password({
+  id,
+  name,
+  login,
+  url,
+  password,
+  isSavedLocally = false,
+}: PasswordProps) {
   return (
     <Layout.Card className="flex gap-4 items-start space-y-0">
       <div className="flex-1 space-y-1">
@@ -26,11 +41,15 @@ export function Password({ id, name, login, url, password }: PasswordProps) {
         {!!url && <p className="text-xs text-muted-foreground">{url}</p>}
         <p className="text-muted-foreground">{"•".repeat(password.length)}</p>
       </div>
-      <div className="flex gap-2">
+      <div className="flex gap-2 items-center">
+        {isSavedLocally && (
+          <DesktopOnly>
+            <LaptopMinimalCheckIcon className="size-4 text-success" />
+          </DesktopOnly>
+        )}
         <Button size="icon" onClick={copy(password)}>
           <CopyIcon />
         </Button>
-
         <ViewButton id={id} />
         <EditButton id={id} />
         <DeleteButton id={id} />

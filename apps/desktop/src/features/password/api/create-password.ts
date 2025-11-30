@@ -6,6 +6,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 import { fetch } from "@/utils/fetch";
+import { isDesktop } from "@/utils/is-desktop";
 
 export async function createPassword(body: CreatePasswordBody) {
   const response = await fetch<CreatePasswordResponse, CreatePasswordBody>(
@@ -16,7 +17,7 @@ export async function createPassword(body: CreatePasswordBody) {
     },
   );
 
-  return response;
+  return response.data;
 }
 
 export function useCreatePassword() {
@@ -24,9 +25,15 @@ export function useCreatePassword() {
 
   const mutation = useMutation({
     mutationFn: createPassword,
-    onSuccess: () => {
+    onSuccess: async ({ password }) => {
       toast.success("Senha salva com sucesso");
       queryClient.invalidateQueries({ queryKey: ["passwords"] });
+
+      if (isDesktop()) {
+        const { passwordsStore } = await import("../stores/passwords-store");
+
+        await passwordsStore.add(password);
+      }
     },
   });
 

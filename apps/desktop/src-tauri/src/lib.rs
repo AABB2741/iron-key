@@ -10,6 +10,7 @@ pub fn run() {
     std::env::set_var("WEBKIT_DISABLE_DMABUF_RENDERER", "1");
 
     tauri::Builder::default()
+        .plugin(tauri_plugin_store::Builder::new().build())
         .plugin(tauri_plugin_http::init())
         .plugin(tauri_plugin_opener::init())
         .invoke_handler(tauri::generate_handler![greet])

@@ -9,6 +9,7 @@ export const listPasswordsItem = z.object({
   createdAt: z.date().transform((d) => d.toISOString()),
   updatedAt: z.date().transform((d) => d.toISOString()),
 });
+export type ListPasswordsItem = z.infer<typeof listPasswordsItem>;
 
 export const listPasswordsResponse = z.object({
   passwords: z.array(listPasswordsItem),

@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { LockIcon, MailIcon, UserIcon } from "lucide-react";
 
 import { Form } from "@/components/form";
@@ -13,6 +13,7 @@ export const Route = createFileRoute("/auth/register")({
 });
 
 function RouteComponent() {
+  const router = useRouter();
   const { register } = useRegister();
 
   const form = useForm({
@@ -26,10 +27,20 @@ function RouteComponent() {
     },
     onSubmit: async (form) => {
       try {
-        await register({
+        const response = await register({
           name: form.value.name,
           email: form.value.email,
           password: form.value.password,
+        });
+
+        if (!response) {
+          router.navigate({
+            to: "/auth/login",
+          });
+        }
+
+        router.navigate({
+          to: "/",
         });
       } catch (error) {
         console.log("Registration error:", error);

@@ -46,6 +46,7 @@ export function SavedPasswordsCard() {
               url={item.siteUrl}
               login={item.login}
               password={item.password}
+              isSavedLocally={item.isSavedLocally}
             />
           ))}
       </div>

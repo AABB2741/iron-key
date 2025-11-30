@@ -19,7 +19,7 @@ export async function editPassword({ passwordId, ...body }: EditPasswordProps) {
     },
   );
 
-  return response;
+  return response.data;
 }
 
 export function useEditPassword() {
