@@ -9,7 +9,7 @@ export type ButtonSize = "base" | "icon";
 
 const container = tv({
   base: twMerge(
-    "rounded-md flex items-center justify-center text-foreground [&>svg]:size-4",
+    "rounded-md flex items-center justify-center text-foreground [&>svg]:size-4 [&>span]:truncate",
     !isDesktop() && "cursor-pointer",
   ),
   variants: {

@@ -71,10 +71,7 @@ export function ViewPasswordModal({
               {
                 icon: ExternalLinkIcon,
                 onClick: () => {
-                  const a = document.createElement("a");
-                  a.target = "_blank";
-                  a.href = password.siteUrl!;
-                  a.click();
+                  window.open(password.siteUrl!, "_blank");
                 },
               },
               {

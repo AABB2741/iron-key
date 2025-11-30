@@ -9,6 +9,7 @@ import {
 
 import { Layout } from "@/components/layout";
 import { Button } from "@/components/ui/button";
+import { DownloadCard } from "@/features/download/components/download-card";
 import { isDesktop } from "@/utils/is-desktop";
 
 export const Route = createFileRoute("/download")({
@@ -91,40 +92,34 @@ function RouteComponent() {
         <section className="text-center space-y-6">
           <h2 className="font-bold text-3xl">Escolha sua plataforma</h2>
           <p>Disponível para Windows, macOS e Linux</p>
-          <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-6 justify-center">
-            <div className="border border-border rounded-xl p-4 space-y-4">
-              <h3 className="font-bold text-xl">Windows</h3>
-              <div>
-                <p>v1.0.0</p>
-                <p>85MB</p>
-              </div>
-              <Button variant="primary" className="w-full">
-                <DownloadIcon />
-                <span>Baixar</span>
-              </Button>
-            </div>
-            <div className="border border-border rounded-xl p-4 space-y-4">
-              <h3 className="font-bold text-xl">MacOS</h3>
-              <div>
-                <p>v1.0.0</p>
-                <p>85MB</p>
-              </div>
-              <Button variant="primary" className="w-full">
-                <DownloadIcon />
-                <span>Baixar</span>
-              </Button>
-            </div>
-            <div className="border border-border rounded-xl p-4 space-y-4">
-              <h3 className="font-bold text-xl">Linux</h3>
-              <div>
-                <p>v1.0.0</p>
-                <p>85MB</p>
-              </div>
-              <Button variant="primary" className="w-full">
-                <DownloadIcon />
-                <span>Baixar</span>
-              </Button>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 items-stretch gap-6 justify-center">
+            <DownloadCard
+              title="Windows"
+              size="4 MB"
+              version="v1.0.0"
+              options={[
+                {
+                  label: "Windows 64-bit",
+                  url: "https://ironkeydesktop.blob.core.windows.net/ironkey-releases/v0.1.0/ironkey_0.1.0_x64-setup.exe",
+                },
+              ]}
+            />
+            <DownloadCard title="MacOS" options={[]} />
+            <DownloadCard
+              title="Linux"
+              size="7.2 MB"
+              version="v1.0.0"
+              options={[
+                {
+                  label: ".deb (Debian/Ubuntu)",
+                  url: "https://ironkeydesktop.blob.core.windows.net/ironkey-releases/v0.1.0/ironkey_0.1.0_amd64.deb",
+                },
+                {
+                  label: ".rpm (Fedora/openSUSE)",
+                  url: "https://ironkeydesktop.blob.core.windows.net/ironkey-releases/v0.1.0/ironkey-0.1.0-1.x86_64.rpm",
+                },
+              ]}
+            />
           </div>
         </section>
 
