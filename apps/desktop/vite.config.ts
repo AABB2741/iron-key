@@ -8,8 +8,6 @@ import { defineConfig } from "vite";
 const host = process.env.TAURI_DEV_HOST;
 
 export default defineConfig({
-  base: process.env.VITE_WEB_URL,
-
   plugins: [
     tanstackRouter({
       target: "react",

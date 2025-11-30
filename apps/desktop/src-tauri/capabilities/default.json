@@ -13,6 +13,9 @@
       "allow": [
         {
           "url": "http://localhost:3333/*"
+        },
+        {
+          "url": "https://ironkey-backend.azurewebsites.net/*"
         }
       ]
     },
