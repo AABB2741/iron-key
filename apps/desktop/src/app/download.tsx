@@ -22,6 +22,8 @@ export const Route = createFileRoute("/download")({
 });
 
 function RouteComponent() {
+  const navigate = Route.useNavigate();
+
   return (
     <>
       <header className="p-4 border-b border-border flex justify-between">
@@ -49,11 +51,27 @@ function RouteComponent() {
             Login opcional para sincronização em nuvem.
           </p>
           <div className="flex sm:flex-row flex-col justify-center gap-6">
-            <Button variant="primary">
+            <Button
+              variant="primary"
+              onClick={() => {
+                window.open(
+                  "https://ironkeydesktop.blob.core.windows.net/ironkey-releases/v0.1.0/ironkey_0.1.0_x64-setup.exe",
+                  "_blank",
+                );
+              }}
+            >
               <DownloadIcon />
               <span>Baixar para Windows</span>
             </Button>
-            <Button>Ver todas as plataformas</Button>
+            <Button
+              onClick={() => {
+                navigate({
+                  hash: "download",
+                });
+              }}
+            >
+              Ver todas as plataformas
+            </Button>
           </div>
         </section>
 
@@ -89,7 +107,7 @@ function RouteComponent() {
           </div>
         </section>
 
-        <section className="text-center space-y-6">
+        <section className="text-center space-y-6" id="download">
           <h2 className="font-bold text-3xl">Escolha sua plataforma</h2>
           <p>Disponível para Windows, macOS e Linux</p>
           <div className="grid grid-cols-1 md:grid-cols-3 items-stretch gap-6 justify-center">
@@ -160,7 +178,13 @@ function RouteComponent() {
         <section className="text-center space-y-6">
           <h2 className="font-bold text-3xl">Pronto para começar?</h2>
           <p>Baixe agora e gere senhas seguras em segundos</p>
-          <Button variant="primary" className="mx-auto">
+          <Button
+            variant="primary"
+            className="mx-auto"
+            onClick={() => {
+              navigate({ hash: "download" });
+            }}
+          >
             <DownloadIcon />
             <span>Baixar agora</span>
           </Button>
