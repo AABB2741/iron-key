@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "pnpm build:web",
     "build:web": "tsc && vite build",
-    "build:linux": "NO_STRIP=1 pnpm tauri build --bundles rpm",
+    "build:linux": "NO_STRIP=1 pnpm tauri build --bundles rpm deb",
     "build:win64": "tauri build --runner cargo-xwin --target x86_64-pc-windows-msvc",
     "build:win32": "tauri build --target i686-pc-windows-msvc",
     "build:macos": "tauri build --target universal-apple-darwin",

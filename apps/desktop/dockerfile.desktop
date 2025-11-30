@@ -61,12 +61,13 @@ FROM builder AS windows-builder
 # Install dependencies for Windows
 # https://v2.tauri.app/distribute/windows-installer/
 RUN apt install -y nsis lld llvm clang
-RUN rustup target add x86_64-pc-windows-msvc i686-pc-windows-msvc
 RUN cargo install --locked cargo-xwin
 
-# Build for Windows (x64, x86)
+# Build for Windows (x64)
+RUN rustup target add x86_64-pc-windows-msvc
 RUN pnpm --filter desktop build:win64
-RUN pnpm --filter desktop build:win32
+# RUN rustup target add i686-pc-windows-msvc
+# RUN pnpm --filter desktop build:win32
 
 # Output stages for each platform
 FROM scratch AS linux-output
