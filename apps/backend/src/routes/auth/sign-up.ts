@@ -1,8 +1,11 @@
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
-import z from "zod";
 
 import { HTTP_CREATED, HTTP_NO_CONTENT } from "@ironkey/constants/http";
-import { signUpBody, signUpResponse } from "@ironkey/routes/auth";
+import {
+  signUp201Response,
+  signUp204Response,
+  signUpBody,
+} from "@ironkey/routes/auth";
 
 import { auth } from "../../lib/auth.ts";
 
@@ -15,8 +18,8 @@ export const signUpRoute: FastifyPluginAsyncZod = async (app) => {
         tags: ["session"],
         body: signUpBody,
         response: {
-          [HTTP_CREATED]: signUpResponse,
-          [HTTP_NO_CONTENT]: z.null(),
+          [HTTP_CREATED]: signUp201Response,
+          [HTTP_NO_CONTENT]: signUp204Response,
         },
       },
     },
